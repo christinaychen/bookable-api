@@ -8,7 +8,7 @@ import { Class, Repository, RepositoryMixin, juggler } from '@loopback/repositor
 import { BootMixin, Booter, Binding } from '@loopback/boot';
 /* tslint:enable:no-unused-variable */
 
-export class BookableApiApplication extends BootMixin(RestApplication) {
+export class BookableApiApplication extends BootMixin(RepositoryMixin(RestApplication)) {
   constructor(options?: ApplicationConfig) {
     super(options);
 
@@ -25,6 +25,17 @@ export class BookableApiApplication extends BootMixin(RestApplication) {
         nested: true,
       },
     };
+
+    var dataSourceConfig = new juggler.DataSource({
+      name: "db",
+      connector: "loopback-connector-mysql",
+      host: 'localhost',
+      port: 3306,
+      database: 'bookable-api',
+      user: 'root',
+      password: ''
+    }); this.dataSource(dataSourceConfig);
+
   }
 
   async start() {

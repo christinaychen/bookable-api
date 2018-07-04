@@ -19,13 +19,21 @@ export class Rating extends Entity {
   venueId: number;
 
   @property({
-    type: "string",
+    type: "number",
   })
   ratingValue: number;
 
 
   getId() {
     return this.id;
+  }
+
+  getRating() {
+    return this.ratingValue;
+  }
+
+  getVenueId() {
+    return this.venueId;
   }
 
 
