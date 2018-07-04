@@ -1,5 +1,6 @@
 import { ApplicationConfig } from '@loopback/core';
 import { RestApplication } from '@loopback/rest';
+import { Class, Repository, juggler } from '@loopback/repository';
 import { Booter, Binding } from '@loopback/boot';
 import { Class, Repository, juggler } from '@loopback/repository';
 declare const BookableApiApplication_base: (new (...args: any[]) => {

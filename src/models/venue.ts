@@ -34,11 +34,6 @@ export class Venue extends Entity {
   @property({
     type: "string"
   })
-  Tags: string;
-
-  @property({
-    type: "string"
-  })
   Latitude: string;
 
   @property({
@@ -47,19 +42,21 @@ export class Venue extends Entity {
   Longitude: string;
 
   @property({
-    type: "string"
+    type: "number"
   })
-  Rating: string;
+  Rating: number;
 
   getPrice() {
     return this.Price;
   }
 
   getId() {
-    return this.ReservationId;
+    return this.VenueId;
   }
 
   getName() {
     return this.Name;
   }
+
+
 }

@@ -31,12 +31,16 @@ export class BookableApiApplication extends BootMixin(RepositoryMixin(RestApplic
       },
     };
 
-    // Use below for an in-memory database
     var dataSourceConfig = new juggler.DataSource({
       name: "db",
-      connector: 'memory'
-    });
-    this.dataSource(dataSourceConfig);
+      connector: "loopback-connector-mysql",
+      host: 'localhost',
+      port: 3306,
+      database: 'bookable-api',
+      user: 'root',
+      password: ''
+    }); this.dataSource(dataSourceConfig);
+
   }
 
   async start() {
