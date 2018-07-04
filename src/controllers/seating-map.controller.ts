@@ -8,34 +8,70 @@ export class SeatingMapController {
     @repository(SeatingMapRepository.name) private SeatingMapRepo: SeatingMapRepository
   ) { }
 
+  @post("/Maps")
+  async createSeatingMap(
+    @requestBody() seatingMap: SeatingMap
+  ): Promise<SeatingMap> {
+
+    let createdSeatingMap = await this.SeatingMapRepo.create(seatingMap);
+    createdSeatingMap.fill();
+    return createdSeatingMap;
+
+  }
+
+  /*@post("/Maps/{Row}/{Column}")
+  async MakeReservation(
+    @param.path.number("Row") Row: number,
+    @param.path.number("Column") Column: number
+  ): Promise<string> {
+
+    let createdSeatingMap = await this.SeatingMapRepo.findById(1);
+    if (createdSeatingMap != null) {
+      console.log(createdSeatingMap.VenueType);
+      return createdSeatingMap.VenueType;
+    }
+    createdSeatingMap.printArray();
+    if (createdSeatingMap != null) {
+      //createdSeatingMap.Layout[Row][Column]
+      if (createdSeatingMap.checkReserved(Row, Column)) {
+        return "Spot is already Booked :(";
+      }
+      else {
+        createdSeatingMap.Layout[Row][Column] = -1;
+        return "Reservation made!";
+      }
+    }
+
+    throw HttpErrors("Null Map");
+
+  } */
+
   /*
-    @post("/Users/{Username}/{Password}")
-    async MakeReservation(
-      @param.path.string("Username") Username: string,
-      @param.path.string("Password") Password: string,
-    ): Promise<string> {
-  
-      let allUsers: Array<Users> = await this.UsersRepo.find();
-  
-      for (let user of allUsers) {
-        if (!user.Username || !user.Password) {
-          throw new HttpErrors.Unauthorized('invalid credentials');
-        }
-  
-        if (user.getUsername() == Username) {
-          if (user.getPassword() == Password) {
-            return "Login Sucessful!";
-          }
-          else {
-            return "Password incorrect";
-          }
+  @post("/Maps/{Row}/{Column}")
+  async MakeReservation(
+    @param.path.number("Row") Row: number,
+    @param.path.number("Column") Column: number,
+  ): Promise<string> {
+
+    for (let user of allUsers) {
+      if (!user.Username || !user.Password) {
+        throw new HttpErrors.Unauthorized('invalid credentials');
+      }
+
+      if (user.getUsername() == Username) {
+        if (user.getPassword() == Password) {
+          return "Login Sucessful!";
         }
         else {
-          return "User not Found";
+          return "Password incorrect";
         }
       }
-  
-  
-      throw new HttpErrors.NotFound("Sorry, User not found")
-    } */
+      else {
+        return "User not Found";
+      }
+    }
+
+
+    throw new HttpErrors.NotFound("Sorry, User not found") */
 }
+
