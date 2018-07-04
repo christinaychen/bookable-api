@@ -1,2 +1,3 @@
 export * from './ping.controller';
-export * from './pizza.controller';
+export * from './customer.controller';
+export * from './rating.controller';
