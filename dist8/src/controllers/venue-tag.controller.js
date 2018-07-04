@@ -13,21 +13,21 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const repository_1 = require("@loopback/repository");
+const venue_tag_repository_1 = require("../repositories/venue-tag.repository");
 const venue_repository_1 = require("../repositories/venue.repository");
-const rating_repository_1 = require("../repositories/rating.repository");
 // Uncomment these imports to begin using these cool features!
 // import {inject} from '@loopback/context';
-let VenueController = class VenueController {
-    constructor(venueRepo, ratingRepo) {
+let VenueTagController = class VenueTagController {
+    constructor(venueTagRepo, venueRepo) {
+        this.venueTagRepo = venueTagRepo;
         this.venueRepo = venueRepo;
-        this.ratingRepo = ratingRepo;
     }
 };
-VenueController = __decorate([
-    __param(0, repository_1.repository(venue_repository_1.VenueRepository.name)),
-    __param(1, repository_1.repository(rating_repository_1.RatingRepository.name)),
-    __metadata("design:paramtypes", [venue_repository_1.VenueRepository,
-        rating_repository_1.RatingRepository])
-], VenueController);
-exports.VenueController = VenueController;
-//# sourceMappingURL=venue.controller.js.map
+VenueTagController = __decorate([
+    __param(0, repository_1.repository(venue_tag_repository_1.VenueTagRepository.name)),
+    __param(1, repository_1.repository(venue_repository_1.VenueRepository.name)),
+    __metadata("design:paramtypes", [venue_tag_repository_1.VenueTagRepository,
+        venue_repository_1.VenueRepository])
+], VenueTagController);
+exports.VenueTagController = VenueTagController;
+//# sourceMappingURL=venue-tag.controller.js.map

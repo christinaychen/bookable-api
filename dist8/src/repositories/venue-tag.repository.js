@@ -13,21 +13,18 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const repository_1 = require("@loopback/repository");
-const venue_repository_1 = require("../repositories/venue.repository");
-const rating_repository_1 = require("../repositories/rating.repository");
-// Uncomment these imports to begin using these cool features!
-// import {inject} from '@loopback/context';
-let VenueController = class VenueController {
-    constructor(venueRepo, ratingRepo) {
-        this.venueRepo = venueRepo;
-        this.ratingRepo = ratingRepo;
+const core_1 = require("@loopback/core");
+const loopback_datasource_juggler_1 = require("loopback-datasource-juggler");
+const venue_tag_1 = require("../models/venue-tag");
+let VenueTagRepository = class VenueTagRepository extends repository_1.DefaultCrudRepository {
+    constructor(datasource) {
+        super(venue_tag_1.VenueTag, datasource);
+        this.datasource = datasource;
     }
 };
-VenueController = __decorate([
-    __param(0, repository_1.repository(venue_repository_1.VenueRepository.name)),
-    __param(1, repository_1.repository(rating_repository_1.RatingRepository.name)),
-    __metadata("design:paramtypes", [venue_repository_1.VenueRepository,
-        rating_repository_1.RatingRepository])
-], VenueController);
-exports.VenueController = VenueController;
-//# sourceMappingURL=venue.controller.js.map
+VenueTagRepository = __decorate([
+    __param(0, core_1.inject('datasources.db')),
+    __metadata("design:paramtypes", [loopback_datasource_juggler_1.DataSource])
+], VenueTagRepository);
+exports.VenueTagRepository = VenueTagRepository;
+//# sourceMappingURL=venue-tag.repository.js.map

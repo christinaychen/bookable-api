@@ -8,4 +8,6 @@ __export(require("./customer.controller"));
 __export(require("./rating.controller"));
 __export(require("./seating-map.controller"));
 __export(require("./venue.controller"));
+__export(require("./venue-rating.controller"));
+__export(require("./venue-tag.controller"));
 //# sourceMappingURL=index.js.map
