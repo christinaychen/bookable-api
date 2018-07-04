@@ -1,10 +1,11 @@
 {
-  "editor.rulers": [80],
+  "editor.rulers": [
+    80
+  ],
   "editor.tabCompletion": true,
   "editor.tabSize": 2,
   "editor.trimAutoWhitespace": true,
   "editor.formatOnSave": true,
-
   "files.exclude": {
     "**/.DS_Store": true,
     "**/.git": true,
@@ -15,7 +16,7 @@
   },
   "files.insertFinalNewline": true,
   "files.trimTrailingWhitespace": true,
-
   "tslint.ignoreDefinitionFiles": true,
-  "typescript.tsdk": "./node_modules/typescript/lib"
+  "typescript.tsdk": "./node_modules/typescript/lib",
+  "javascript.implicitProjectConfig.experimentalDecorators": true
 }
