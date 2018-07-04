@@ -12,36 +12,10 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-<<<<<<< HEAD
-const rest_1 = require("@loopback/rest");
-const venue_1 = require("../models/venue");
-const repository_1 = require("@loopback/repository");
-const venue_repository_1 = require("../repositories/venue.repository");
-let VenueController = class VenueController {
-    constructor(VenueRepo) {
-        this.VenueRepo = VenueRepo;
-    }
-    async createVenue(Venue) {
-        let createdVenue = await this.VenueRepo.create(Venue);
-        return createdVenue;
-    }
-};
-__decorate([
-    rest_1.post("/Venue"),
-    __param(0, rest_1.requestBody()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [venue_1.Venue]),
-    __metadata("design:returntype", Promise)
-], VenueController.prototype, "createVenue", null);
-VenueController = __decorate([
-    __param(0, repository_1.repository(venue_repository_1.VenueRepository.name)),
-    __metadata("design:paramtypes", [venue_repository_1.VenueRepository])
-=======
 const repository_1 = require("@loopback/repository");
 const venue_repository_1 = require("../repositories/venue.repository");
 const rating_repository_1 = require("../repositories/rating.repository");
 // Uncomment these imports to begin using these cool features!
-// import {inject} from '@loopback/context';
 let VenueController = class VenueController {
     constructor(venueRepo, ratingRepo) {
         this.venueRepo = venueRepo;
@@ -53,7 +27,6 @@ VenueController = __decorate([
     __param(1, repository_1.repository(rating_repository_1.RatingRepository.name)),
     __metadata("design:paramtypes", [venue_repository_1.VenueRepository,
         rating_repository_1.RatingRepository])
->>>>>>> f55c82668d9fa03c49cd7fff482c5f6b8a321e1e
 ], VenueController);
 exports.VenueController = VenueController;
 //# sourceMappingURL=venue.controller.js.map

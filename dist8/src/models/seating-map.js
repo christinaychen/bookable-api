@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const repository_1 = require("@loopback/repository");
 let SeatingMap = class SeatingMap extends repository_1.Entity {
-<<<<<<< HEAD
     fill() {
         this.Layout = [];
         for (let i = 0; i < this.Rows; i++) {
@@ -30,18 +29,13 @@ let SeatingMap = class SeatingMap extends repository_1.Entity {
         console.log("new line");
     }
     checkReserved(Row, Column) {
-        console.log("we out here");
         if (this.Layout[Row][Column] == -1) {
-            console.log("das true");
             return true;
         }
         else {
-            console.log("das false");
             return false;
         }
     }
-=======
->>>>>>> f55c82668d9fa03c49cd7fff482c5f6b8a321e1e
 };
 __decorate([
     repository_1.property({
@@ -66,7 +60,12 @@ __decorate([
     repository_1.property({
         type: "number"
     }),
-<<<<<<< HEAD
+    __metadata("design:type", Array)
+], SeatingMap.prototype, "Layout", void 0);
+__decorate([
+    repository_1.property({
+        type: "number"
+    }),
     __metadata("design:type", Number)
 ], SeatingMap.prototype, "Rows", void 0);
 __decorate([
@@ -75,10 +74,6 @@ __decorate([
     }),
     __metadata("design:type", Number)
 ], SeatingMap.prototype, "Columns", void 0);
-=======
-    __metadata("design:type", Array)
-], SeatingMap.prototype, "Layout", void 0);
->>>>>>> f55c82668d9fa03c49cd7fff482c5f6b8a321e1e
 SeatingMap = __decorate([
     repository_1.model({
         name: "SeatingMap"

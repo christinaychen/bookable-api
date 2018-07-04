@@ -12,41 +12,18 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-<<<<<<< HEAD
 const rest_1 = require("@loopback/rest");
 const seating_map_1 = require("../models/seating-map");
-=======
->>>>>>> f55c82668d9fa03c49cd7fff482c5f6b8a321e1e
 const repository_1 = require("@loopback/repository");
 const seating_map_repository_1 = require("../repositories/seating-map.repository");
 let SeatingMapController = class SeatingMapController {
     constructor(SeatingMapRepo) {
         this.SeatingMapRepo = SeatingMapRepo;
     }
-<<<<<<< HEAD
     async createSeatingMap(seatingMap) {
         let createdSeatingMap = await this.SeatingMapRepo.create(seatingMap);
         createdSeatingMap.fill();
         return createdSeatingMap;
-    }
-    async MakeReservation(Row, Column) {
-        let createdSeatingMap = await this.SeatingMapRepo.findById(1);
-        /*if (createdSeatingMap != null) {
-          console.log(createdSeatingMap.VenueType);
-          return createdSeatingMap.VenueType;
-        } */
-        createdSeatingMap.printArray();
-        if (createdSeatingMap != null) {
-            //createdSeatingMap.Layout[Row][Column]
-            if (createdSeatingMap.checkReserved(Row, Column)) {
-                return "Spot is already Booked :(";
-            }
-            else {
-                createdSeatingMap.Layout[Row][Column] = -1;
-                return "Reservation made!";
-            }
-        }
-        throw rest_1.HttpErrors("Null Map");
     }
 };
 __decorate([
@@ -56,17 +33,6 @@ __decorate([
     __metadata("design:paramtypes", [seating_map_1.SeatingMap]),
     __metadata("design:returntype", Promise)
 ], SeatingMapController.prototype, "createSeatingMap", null);
-__decorate([
-    rest_1.post("/Maps/{Row}/{Column}"),
-    __param(0, rest_1.param.path.number("Row")),
-    __param(1, rest_1.param.path.number("Column")),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, Number]),
-    __metadata("design:returntype", Promise)
-], SeatingMapController.prototype, "MakeReservation", null);
-=======
-};
->>>>>>> f55c82668d9fa03c49cd7fff482c5f6b8a321e1e
 SeatingMapController = __decorate([
     __param(0, repository_1.repository(seating_map_repository_1.SeatingMapRepository.name)),
     __metadata("design:paramtypes", [seating_map_repository_1.SeatingMapRepository])

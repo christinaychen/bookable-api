@@ -12,6 +12,12 @@ export class VenueTag extends Entity {
   })
   venueId: number;
 
+  @property({
+    type: "number",
+    id: true
+  })
+  tagId: number;
+
 
 
   getVenueId() {

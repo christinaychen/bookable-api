@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const rest_1 = require("@loopback/rest");
 const sequence_1 = require("./sequence");
-const repository_1 = require("@loopback/repository");
 /* tslint:disable:no-unused-variable */
 // Binding and Booter imports are required to infer types for BootMixin!
 const boot_1 = require("@loopback/boot");
@@ -23,12 +22,6 @@ class BookableApiApplication extends boot_1.BootMixin(repository_1.RepositoryMix
                 nested: true,
             },
         };
-<<<<<<< HEAD
-        // Use below for an in-memory database
-        var dataSourceConfig = new repository_1.juggler.DataSource({
-            name: "db",
-            connector: 'memory'
-=======
         var dataSourceConfig = new repository_1.juggler.DataSource({
             name: "db",
             connector: "loopback-connector-mysql",
@@ -37,7 +30,6 @@ class BookableApiApplication extends boot_1.BootMixin(repository_1.RepositoryMix
             database: 'bookable-api',
             user: 'root',
             password: ''
->>>>>>> f55c82668d9fa03c49cd7fff482c5f6b8a321e1e
         });
         this.dataSource(dataSourceConfig);
     }
