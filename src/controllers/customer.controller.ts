@@ -27,7 +27,7 @@ export class CustomerController {
     let createdUser = await this.customerRepo.create(customer);
     return createdUser;
   }
-
+  /*
   @post("/login")
   async loginUser(
     @requestBody() customer: Customer
@@ -55,5 +55,5 @@ export class CustomerController {
         ]
       },
     });
-  }
+  } */
 }
