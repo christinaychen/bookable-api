@@ -17,12 +17,6 @@ export class VenueTagController {
     @repository(VenueRepository.name) private venueRepo: VenueRepository) { }
 
 
-  @post("/tags")
-  async addTag(
-    @requestBody() VenueTag: VenueTag
-  ): Promise<VenueTag> {
-    return await this.venueTagRepo.create(VenueTag);
-  }
 
   /*
   @get("/tags/{venue}")
