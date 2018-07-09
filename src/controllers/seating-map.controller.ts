@@ -37,6 +37,21 @@ export class SeatingMapController {
     @param.path.number("Column") Column: number
   ): Promise<string> {
 
+    1. Find all reservations, get a list of reservations with x,y
+    2. Which reservation product we want to reserve on...
+
+    var matrix = int[reservation.col][reservation.row];
+
+    reservations.forEach(res => {
+      matrix[res.x][res.y] = 1;
+    });
+
+    if (matrix[Col][Row] == 1) {
+      throw already reserved
+    }
+
+    this.reservationRepo.create();
+
     let createdSeatingMap = await this.SeatingMapRepo.findById(1);
     if (createdSeatingMap != null) {
       console.log(createdSeatingMap.VenueType);

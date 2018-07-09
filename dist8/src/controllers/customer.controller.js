@@ -33,28 +33,6 @@ let CustomerController = class CustomerController {
         let createdUser = await this.customerRepo.create(customer);
         return createdUser;
     }
-    async loginUser(customer) {
-        if (!customer.email || !customer.password) {
-            throw new rest_1.HttpErrors.Unauthorized('All fields required');
-        }
-        let userExists = !!(await this.customerRepo.count({
-            and: [
-                { email: customer.email },
-                { password: customer.password },
-            ],
-        }));
-        if (!userExists) {
-            throw new rest_1.HttpErrors.Unauthorized('Invalid credentials');
-        }
-        return await this.customerRepo.findOne({
-            where: {
-                and: [
-                    { email: customer.email },
-                    { password: customer.password }
-                ]
-            },
-        });
-    }
 };
 __decorate([
     rest_1.post("/registration"),
@@ -63,13 +41,6 @@ __decorate([
     __metadata("design:paramtypes", [customer_1.Customer]),
     __metadata("design:returntype", Promise)
 ], CustomerController.prototype, "registerCustomer", null);
-__decorate([
-    rest_1.post("/login"),
-    __param(0, rest_1.requestBody()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [customer_1.Customer]),
-    __metadata("design:returntype", Promise)
-], CustomerController.prototype, "loginUser", null);
 CustomerController = __decorate([
     __param(0, repository_1.repository(customer_repository_1.CustomerRepository.name)),
     __metadata("design:paramtypes", [customer_repository_1.CustomerRepository])

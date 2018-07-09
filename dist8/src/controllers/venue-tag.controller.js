@@ -52,7 +52,6 @@ let VenueTagController = class VenueTagController {
     }
     async getAllVenuesWithTag(tagType) {
         let allTags = await this.venueTagRepo.find();
-        console.log("Testing");
         let venueList = [];
         for (let tag of allTags) {
             if (tag.tagType == tagType) {

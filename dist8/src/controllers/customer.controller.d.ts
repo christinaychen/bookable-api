@@ -4,5 +4,4 @@ export declare class CustomerController {
     private customerRepo;
     constructor(customerRepo: CustomerRepository);
     registerCustomer(customer: Customer): Promise<Customer>;
-    loginUser(customer: Customer): Promise<Customer | null>;
 }
