@@ -14,14 +14,14 @@ export class VenueTagController {
   constructor(@repository(VenueTagRepository.name) private venueTagRepo: VenueTagRepository,
     @repository(VenueRepository.name) private venueRepo: VenueRepository) { }
 
-  // @get("/tags/{venue}")
-  // async getAllTagsForVenue(
-  //   @param.query.string("venue") venue: Venue
-  // ) {
-  //   return await this.venueTagRepo.find({
-  //     where: { venueId: venue.getId() }
-  //   })
-  // }
+  @get("/tags/{venue}")
+  async getAllTagsForVenue(
+    @param.query.string("venue") venue: Venue
+  ) {
+    return await this.venueTagRepo.find({
+      where: { venueId: venue.getId() }
+    })
+  }
 
 
 
