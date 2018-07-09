@@ -27,6 +27,13 @@ __decorate([
     }),
     __metadata("design:type", Number)
 ], VenueTag.prototype, "venueId", void 0);
+__decorate([
+    repository_1.property({
+        type: "number",
+        id: true
+    }),
+    __metadata("design:type", Number)
+], VenueTag.prototype, "tagId", void 0);
 VenueTag = __decorate([
     repository_1.model()
 ], VenueTag);

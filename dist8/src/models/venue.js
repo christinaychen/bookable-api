@@ -10,31 +10,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const repository_1 = require("@loopback/repository");
-let SeatingMap = class SeatingMap extends repository_1.Entity {
-    fill() {
-        this.Layout = [];
-        for (let i = 0; i < this.Rows; i++) {
-            this.Layout[i] = [];
-            for (let j = 0; j < this.Columns; j++) {
-                this.Layout[i][j] = 10;
-            }
-        }
+let Venue = class Venue extends repository_1.Entity {
+    getPrice() {
+        return this.Price;
     }
-    printArray() {
-        for (let i = 0; i < this.Rows; i++) {
-            for (let j = 0; j < this.Columns; j++) {
-                console.log(this.Layout[i][j] + " ");
-            }
-        }
-        console.log("new line");
+    getId() {
+        return this.VenueId;
     }
-    checkReserved(Row, Column) {
-        if (this.Layout[Row][Column] == -1) {
-            return true;
-        }
-        else {
-            return false;
-        }
+    getName() {
+        return this.Name;
     }
 };
 __decorate([
@@ -43,41 +27,53 @@ __decorate([
         id: true
     }),
     __metadata("design:type", Number)
-], SeatingMap.prototype, "MapId", void 0);
-__decorate([
-    repository_1.property({
-        type: "number"
-    }),
-    __metadata("design:type", Number)
-], SeatingMap.prototype, "VenueId", void 0);
+], Venue.prototype, "VenueId", void 0);
 __decorate([
     repository_1.property({
         type: "string"
     }),
     __metadata("design:type", String)
-], SeatingMap.prototype, "VenueType", void 0);
+], Venue.prototype, "Name", void 0);
 __decorate([
     repository_1.property({
-        type: "number"
+        type: "string"
     }),
-    __metadata("design:type", Array)
-], SeatingMap.prototype, "Layout", void 0);
-__decorate([
-    repository_1.property({
-        type: "number"
-    }),
-    __metadata("design:type", Number)
-], SeatingMap.prototype, "Rows", void 0);
+    __metadata("design:type", String)
+], Venue.prototype, "Type", void 0);
 __decorate([
     repository_1.property({
         type: "number"
     }),
     __metadata("design:type", Number)
-], SeatingMap.prototype, "Columns", void 0);
-SeatingMap = __decorate([
+], Venue.prototype, "Address", void 0);
+__decorate([
+    repository_1.property({
+        type: "number"
+    }),
+    __metadata("design:type", Number)
+], Venue.prototype, "MapId", void 0);
+__decorate([
+    repository_1.property({
+        type: "string"
+    }),
+    __metadata("design:type", String)
+], Venue.prototype, "Latitude", void 0);
+__decorate([
+    repository_1.property({
+        type: "string"
+    }),
+    __metadata("design:type", String)
+], Venue.prototype, "Longitude", void 0);
+__decorate([
+    repository_1.property({
+        type: "number"
+    }),
+    __metadata("design:type", Number)
+], Venue.prototype, "Rating", void 0);
+Venue = __decorate([
     repository_1.model({
-        name: "SeatingMap"
+        name: "Venue"
     })
-], SeatingMap);
-exports.SeatingMap = SeatingMap;
-//# sourceMappingURL=seating-map.js.map
+], Venue);
+exports.Venue = Venue;
+//# sourceMappingURL=Venue.js.map

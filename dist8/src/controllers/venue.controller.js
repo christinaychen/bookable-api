@@ -16,7 +16,6 @@ const repository_1 = require("@loopback/repository");
 const venue_repository_1 = require("../repositories/venue.repository");
 const rating_repository_1 = require("../repositories/rating.repository");
 // Uncomment these imports to begin using these cool features!
-// import {inject} from '@loopback/context';
 let VenueController = class VenueController {
     constructor(venueRepo, ratingRepo) {
         this.venueRepo = venueRepo;

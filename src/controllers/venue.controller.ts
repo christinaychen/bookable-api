@@ -8,7 +8,6 @@ import { Venue } from "../models/venue";
 
 // Uncomment these imports to begin using these cool features!
 
-// import {inject} from '@loopback/context';
 
 
 export class VenueController {

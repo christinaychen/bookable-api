@@ -2,10 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const rest_1 = require("@loopback/rest");
 const sequence_1 = require("./sequence");
-const repository_1 = require("@loopback/repository");
 /* tslint:disable:no-unused-variable */
 // Binding and Booter imports are required to infer types for BootMixin!
 const boot_1 = require("@loopback/boot");
+const repository_1 = require("@loopback/repository");
 /* tslint:enable:no-unused-variable */
 class BookableApiApplication extends boot_1.BootMixin(repository_1.RepositoryMixin(rest_1.RestApplication)) {
     constructor(options) {

@@ -12,13 +12,27 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const rest_1 = require("@loopback/rest");
+const seating_map_1 = require("../models/seating-map");
 const repository_1 = require("@loopback/repository");
 const seating_map_repository_1 = require("../repositories/seating-map.repository");
 let SeatingMapController = class SeatingMapController {
     constructor(SeatingMapRepo) {
         this.SeatingMapRepo = SeatingMapRepo;
     }
+    async createSeatingMap(seatingMap) {
+        let createdSeatingMap = await this.SeatingMapRepo.create(seatingMap);
+        createdSeatingMap.fill();
+        return createdSeatingMap;
+    }
 };
+__decorate([
+    rest_1.post("/Maps"),
+    __param(0, rest_1.requestBody()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [seating_map_1.SeatingMap]),
+    __metadata("design:returntype", Promise)
+], SeatingMapController.prototype, "createSeatingMap", null);
 SeatingMapController = __decorate([
     __param(0, repository_1.repository(seating_map_repository_1.SeatingMapRepository.name)),
     __metadata("design:paramtypes", [seating_map_repository_1.SeatingMapRepository])
