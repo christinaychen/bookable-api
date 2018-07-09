@@ -4,6 +4,7 @@ import { get, param, HttpErrors, post, requestBody } from "@loopback/rest";
 import { Venue } from "../models/venue";
 import { VenueRepository } from "../repositories/venue.repository";
 import { VenueTag } from "../models/venue-tag";
+import { verify } from "jsonwebtoken";
 
 
 
@@ -31,6 +32,17 @@ export class VenueTagController {
       },
     });
   } */
+
+  @get("/verify")
+  verifyToken(@param.query.string("jwt") jwt: string) {
+    try {
+      let payload = verify(jwt, "shh");
+      return payload;
+    }
+    catch (err) {
+      throw new HttpErrors.Unauthorized("Invalid token")
+    }
+  }
 
   @get("/tags/{venueId}")
   async getAllTagsForVenue(

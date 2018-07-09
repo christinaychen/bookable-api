@@ -1,17 +1,22 @@
 import { Entity, property, model } from '@loopback/repository';
 
 @model()
-export class Customer extends Entity {
+export class totalPurchase extends Entity {
   @property({
     type: 'number',
     id: true,
   })
-  customerId?: number;
+  purchaseId?: number;
 
   @property({
-    type: "string",
+    type: 'number',
   })
-  name: string;
+  customerId: number;
+
+  @property({
+    type: "DateTime",
+  })
+  purchaseDate: Date;
 
   @property({
     type: "number",

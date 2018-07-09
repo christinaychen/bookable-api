@@ -2,11 +2,23 @@ import { get, param, HttpErrors, post, requestBody } from "@loopback/rest";
 import { SeatingMap } from "../models/seating-map";
 import { repository } from "@loopback/repository";
 import { SeatingMapRepository } from "../repositories/seating-map.repository";
+import { verify } from "jsonwebtoken";
 
 export class SeatingMapController {
   constructor(
     @repository(SeatingMapRepository.name) private SeatingMapRepo: SeatingMapRepository
   ) { }
+
+  @get("/verify")
+  verifyToken(@param.query.string("jwt") jwt: string) {
+    try {
+      let payload = verify(jwt, "shh");
+      return payload;
+    }
+    catch (err) {
+      throw new HttpErrors.Unauthorized("Invalid token")
+    }
+  }
 
   @post("/Maps")
   async createSeatingMap(

@@ -32,7 +32,7 @@ export class CustomerController {
   @get("/verify")
   verifyToken(@param.query.string("jwt") jwt: string) {
     try {
-      let payload = verify(jwt, "qwerty");
+      let payload = verify(jwt, "shh");
       return payload;
     }
     catch (err) {
@@ -46,13 +46,9 @@ export class CustomerController {
   async loginUser(
     @requestBody() customer: Customer
   ) {
-
-
-
     if (!customer.email || !customer.password) {
       throw new HttpErrors.Unauthorized('All fields required');
     }
-
     let userExists: boolean = !!(await this.customerRepo.count({
       and: [
         { email: customer.email },

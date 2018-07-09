@@ -6,6 +6,7 @@ import { get, param, HttpErrors, post, requestBody } from "@loopback/rest";
 import { Rating } from "../models/rating";
 import { Venue } from "../models/venue";
 import { VenueRating } from "../models/venue-rating";
+import { verify } from "jsonwebtoken";
 
 // Uncomment these imports to begin using these cool features!
 
@@ -17,6 +18,17 @@ export class VenueRatingController {
     @repository(RatingRepository.name) private ratingRepo: RatingRepository,
     @repository(VenueRatingRepository.name) private venueRatingRepo: VenueRatingRepository
   ) { }
+
+  @get("/verify")
+  verifyToken(@param.query.string("jwt") jwt: string) {
+    try {
+      let payload = verify(jwt, "shh");
+      return payload;
+    }
+    catch (err) {
+      throw new HttpErrors.Unauthorized("Invalid token")
+    }
+  }
 
   @get("/rating")
   async getRatings(@param.path.string("venue") venue: Venue): Promise<Array<Rating>> {
