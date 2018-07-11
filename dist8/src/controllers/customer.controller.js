@@ -40,11 +40,22 @@ let CustomerController = class CustomerController {
         customerToStore.email = customer.email;
         customerToStore.password = hashedPassword;
         let storedCustomer = await this.customerRepo.create(customerToStore);
-        return storedCustomer;
+        let jwt = jsonwebtoken_1.sign({
+            user: {
+                id: storedCustomer.id,
+                email: storedCustomer.email
+            },
+        }, 'shh', {
+            issuer: 'auth.ix.com',
+            audience: 'ix.com',
+        });
+        return {
+            token: jwt,
+        };
     }
     verifyToken(jwt) {
         try {
-            let payload = jsonwebtoken_1.verify(jwt, "qwerty");
+            let payload = jsonwebtoken_1.verify(jwt, "shh");
             return payload;
         }
         catch (err) {
@@ -55,16 +66,14 @@ let CustomerController = class CustomerController {
         if (!customer.email || !customer.password) {
             throw new rest_1.HttpErrors.Unauthorized('All fields required');
         }
-        /*let userExists: boolean = !!(await this.customerRepo.count({
-          and: [
-            { email: customer.email },
-            { password: customer.password },
-          ],
+        let userExists = !!(await this.customerRepo.count({
+            and: [
+                { email: customer.email }
+            ],
         }));
-    
         if (!userExists) {
-          throw new HttpErrors.Unauthorized('Invalid credentials');
-        } */
+            throw new rest_1.HttpErrors.Unauthorized('Invalid credentials');
+        }
         let user = await this.customerRepo.findOne({
             where: {
                 and: [

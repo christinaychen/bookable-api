@@ -12,11 +12,11 @@ export class totalPurchase extends Entity {
     type: 'number',
   })
   customerId: number;
-
-  @property({
-    type: "DateTime",
-  })
-  purchaseDate: Date;
+  /*
+    @property({
+      type: "datetime",
+    })
+    purchaseDate: Date; */
 
   @property({
     type: "number",

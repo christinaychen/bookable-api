@@ -16,11 +16,29 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // import {inject} from '@loopback/context';
 const repository_1 = require("@loopback/repository");
 const rating_repository_1 = require("../repositories/rating.repository");
+const rest_1 = require("@loopback/rest");
+const jsonwebtoken_1 = require("jsonwebtoken");
 let RatingController = class RatingController {
     constructor(ratingRepo) {
         this.ratingRepo = ratingRepo;
     }
+    verifyToken(jwt) {
+        try {
+            let payload = jsonwebtoken_1.verify(jwt, "shh");
+            return payload;
+        }
+        catch (err) {
+            throw new rest_1.HttpErrors.Unauthorized("Invalid token");
+        }
+    }
 };
+__decorate([
+    rest_1.get("/verify"),
+    __param(0, rest_1.param.query.string("jwt")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], RatingController.prototype, "verifyToken", null);
 RatingController = __decorate([
     __param(0, repository_1.repository(rating_repository_1.RatingRepository.name)),
     __metadata("design:paramtypes", [rating_repository_1.RatingRepository])

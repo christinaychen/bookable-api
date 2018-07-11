@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const rest_1 = require("@loopback/rest");
 const openapi_v3_1 = require("@loopback/openapi-v3");
 const context_1 = require("@loopback/context");
+const jsonwebtoken_1 = require("jsonwebtoken");
 /**
  * A simple controller to bounce back http requests
  */
@@ -31,6 +32,15 @@ let PingController = class PingController {
             headers: Object.assign({}, this.req.headers),
         };
     }
+    verifyToken(jwt) {
+        try {
+            let payload = jsonwebtoken_1.verify(jwt, "shh");
+            return payload;
+        }
+        catch (err) {
+            throw new rest_1.HttpErrors.Unauthorized("Invalid token");
+        }
+    }
 };
 __decorate([
     openapi_v3_1.get('/ping'),
@@ -38,6 +48,13 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Object)
 ], PingController.prototype, "ping", null);
+__decorate([
+    openapi_v3_1.get("/verify"),
+    __param(0, openapi_v3_1.param.query.string("jwt")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], PingController.prototype, "verifyToken", null);
 PingController = __decorate([
     __param(0, context_1.inject(rest_1.RestBindings.Http.REQUEST)),
     __metadata("design:paramtypes", [Object])

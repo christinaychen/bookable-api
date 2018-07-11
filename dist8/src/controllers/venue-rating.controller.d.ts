@@ -9,6 +9,7 @@ export declare class VenueRatingController {
     private ratingRepo;
     private venueRatingRepo;
     constructor(venueRepo: VenueRepository, ratingRepo: RatingRepository, venueRatingRepo: VenueRatingRepository);
+    verifyToken(jwt: string): string | object;
     getRatings(venue: Venue): Promise<Array<Rating>>;
     calculateRating(venue: Venue): Promise<VenueRating>;
 }

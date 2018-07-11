@@ -4,4 +4,5 @@ export declare class VenueController {
     private venueRepo;
     private ratingRepo;
     constructor(venueRepo: VenueRepository, ratingRepo: RatingRepository);
+    verifyToken(jwt: string): string | object;
 }

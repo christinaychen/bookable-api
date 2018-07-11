@@ -12,14 +12,16 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const rest_1 = require("@loopback/rest");
-const seating_map_1 = require("../models/seating-map");
+const total_purchase_repository_1 = require("../repositories/total-purchase.repository");
 const repository_1 = require("@loopback/repository");
-const seating_map_repository_1 = require("../repositories/seating-map.repository");
+const total_purchase_1 = require("../models/total-purchase");
 const jsonwebtoken_1 = require("jsonwebtoken");
-let SeatingMapController = class SeatingMapController {
-    constructor(SeatingMapRepo) {
-        this.SeatingMapRepo = SeatingMapRepo;
+const rest_1 = require("@loopback/rest");
+// Uncomment these imports to begin using these cool features!
+// import {inject} from '@loopback/context';
+let TotalPurchaseController = class TotalPurchaseController {
+    constructor(totalPurchaseRepo) {
+        this.totalPurchaseRepo = totalPurchaseRepo;
     }
     verifyToken(jwt) {
         try {
@@ -30,10 +32,8 @@ let SeatingMapController = class SeatingMapController {
             throw new rest_1.HttpErrors.Unauthorized("Invalid token");
         }
     }
-    async createSeatingMap(seatingMap) {
-        let createdSeatingMap = await this.SeatingMapRepo.create(seatingMap);
-        createdSeatingMap.fill();
-        return createdSeatingMap;
+    async purchaseItems(finalPurchase) {
+        return await this.totalPurchaseRepo.create(finalPurchase);
     }
 };
 __decorate([
@@ -42,17 +42,17 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
-], SeatingMapController.prototype, "verifyToken", null);
+], TotalPurchaseController.prototype, "verifyToken", null);
 __decorate([
-    rest_1.post("/Maps"),
-    __param(0, rest_1.requestBody()),
+    rest_1.post("/purchase"),
+    __param(0, rest_1.param.query.string("finalPurchase")),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [seating_map_1.SeatingMap]),
+    __metadata("design:paramtypes", [total_purchase_1.totalPurchase]),
     __metadata("design:returntype", Promise)
-], SeatingMapController.prototype, "createSeatingMap", null);
-SeatingMapController = __decorate([
-    __param(0, repository_1.repository(seating_map_repository_1.SeatingMapRepository.name)),
-    __metadata("design:paramtypes", [seating_map_repository_1.SeatingMapRepository])
-], SeatingMapController);
-exports.SeatingMapController = SeatingMapController;
-//# sourceMappingURL=seating-map.controller.js.map
+], TotalPurchaseController.prototype, "purchaseItems", null);
+TotalPurchaseController = __decorate([
+    __param(0, repository_1.repository(total_purchase_repository_1.TotalPurchaseRepository.name)),
+    __metadata("design:paramtypes", [total_purchase_repository_1.TotalPurchaseRepository])
+], TotalPurchaseController);
+exports.TotalPurchaseController = TotalPurchaseController;
+//# sourceMappingURL=total-purchase.controller.js.map
