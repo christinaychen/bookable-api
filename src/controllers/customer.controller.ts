@@ -17,7 +17,7 @@ export class CustomerController {
   @post("/registration")
   async registerCustomer(
     @requestBody() customer: Customer
-  ): Promise<Customer> {
+  ) {
     if (!customer.name || !customer.email || !customer.password) {
       throw new HttpErrors.BadRequest('All fields required');
     }
@@ -37,8 +37,23 @@ export class CustomerController {
     customerToStore.password = hashedPassword;
     let storedCustomer = await this.customerRepo.create(customerToStore);
 
+    let jwt = sign(
+      {
+        user: {
+          id: storedCustomer.id,
+          email: storedCustomer.email
+        },
+      },
+      'shh',
+      {
+        issuer: 'auth.ix.com',
+        audience: 'ix.com',
+      },
+    );
 
-    return storedCustomer;
+    return {
+      token: jwt,
+    };
   }
 
   @get("/verify")
