@@ -59,16 +59,15 @@ export class CustomerController {
     if (!customer.email || !customer.password) {
       throw new HttpErrors.Unauthorized('All fields required');
     }
-    /*let userExists: boolean = !!(await this.customerRepo.count({
+    let userExists: boolean = !!(await this.customerRepo.count({
       and: [
-        { email: customer.email },
-        { password: customer.password },
+        { email: customer.email }
       ],
     }));
 
     if (!userExists) {
       throw new HttpErrors.Unauthorized('Invalid credentials');
-    }*/
+    }
 
     let user = await this.customerRepo.findOne({
       where: {
