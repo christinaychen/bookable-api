@@ -16,16 +16,12 @@ const repository_1 = require("@loopback/repository");
 const venue_tag_repository_1 = require("../repositories/venue-tag.repository");
 const rest_1 = require("@loopback/rest");
 const venue_repository_1 = require("../repositories/venue.repository");
-const venue_tag_1 = require("../models/venue-tag");
 // Uncomment these imports to begin using these cool features!
 // import {inject} from '@loopback/context';
 let VenueTagController = class VenueTagController {
     constructor(venueTagRepo, venueRepo) {
         this.venueTagRepo = venueTagRepo;
         this.venueRepo = venueRepo;
-    }
-    async addTag(VenueTag) {
-        return await this.venueTagRepo.create(VenueTag);
     }
     /*
     @get("/tags/{venue}")
@@ -61,13 +57,6 @@ let VenueTagController = class VenueTagController {
         return venueList;
     }
 };
-__decorate([
-    rest_1.post("/tags"),
-    __param(0, rest_1.requestBody()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [venue_tag_1.VenueTag]),
-    __metadata("design:returntype", Promise)
-], VenueTagController.prototype, "addTag", null);
 __decorate([
     rest_1.get("/tags/{venueId}"),
     __param(0, rest_1.param.query.number("venueId")),

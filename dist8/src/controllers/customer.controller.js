@@ -16,6 +16,8 @@ const repository_1 = require("@loopback/repository");
 const customer_repository_1 = require("../repositories/customer.repository");
 const rest_1 = require("@loopback/rest");
 const customer_1 = require("../models/customer");
+const jsonwebtoken_1 = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 // Uncomment these imports to begin using these cool features!
 // import {inject} from '@loopback/context';
 let CustomerController = class CustomerController {
@@ -30,8 +32,62 @@ let CustomerController = class CustomerController {
         if (userExists) {
             throw new rest_1.HttpErrors.BadRequest('User already exists');
         }
-        let createdUser = await this.customerRepo.create(customer);
-        return createdUser;
+        let hashedPassword = await bcrypt.hash(customer.password, 10);
+        var customerToStore = new customer_1.Customer();
+        customerToStore.customerId = customer.customerId;
+        customerToStore.name = customer.name;
+        customerToStore.age = customer.age;
+        customerToStore.email = customer.email;
+        customerToStore.password = hashedPassword;
+        let storedCustomer = await this.customerRepo.create(customerToStore);
+        return storedCustomer;
+    }
+    verifyToken(jwt) {
+        try {
+            let payload = jsonwebtoken_1.verify(jwt, "qwerty");
+            return payload;
+        }
+        catch (err) {
+            throw new rest_1.HttpErrors.Unauthorized("Invalid token");
+        }
+    }
+    async loginUser(customer) {
+        if (!customer.email || !customer.password) {
+            throw new rest_1.HttpErrors.Unauthorized('All fields required');
+        }
+        /*let userExists: boolean = !!(await this.customerRepo.count({
+          and: [
+            { email: customer.email },
+            { password: customer.password },
+          ],
+        }));
+    
+        if (!userExists) {
+          throw new HttpErrors.Unauthorized('Invalid credentials');
+        } */
+        let user = await this.customerRepo.findOne({
+            where: {
+                and: [
+                    { email: customer.email },
+                ]
+            },
+        });
+        if (!await bcrypt.compare(customer.password, user.password)) {
+            throw new rest_1.HttpErrors.Unauthorized('invalid credentials');
+        }
+        let jwf = jsonwebtoken_1.sign({
+            Customer: {
+                id: user.id,
+                email: user.email,
+                name: user.name
+            }
+        }, 'shh', {
+            issuer: 'auth.ix.co.za',
+            audience: 'ix.co.za'
+        });
+        return {
+            token: jwf
+        };
     }
 };
 __decorate([
@@ -41,6 +97,20 @@ __decorate([
     __metadata("design:paramtypes", [customer_1.Customer]),
     __metadata("design:returntype", Promise)
 ], CustomerController.prototype, "registerCustomer", null);
+__decorate([
+    rest_1.get("/verify"),
+    __param(0, rest_1.param.query.string("jwt")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], CustomerController.prototype, "verifyToken", null);
+__decorate([
+    rest_1.post("/login"),
+    __param(0, rest_1.requestBody()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [customer_1.Customer]),
+    __metadata("design:returntype", Promise)
+], CustomerController.prototype, "loginUser", null);
 CustomerController = __decorate([
     __param(0, repository_1.repository(customer_repository_1.CustomerRepository.name)),
     __metadata("design:paramtypes", [customer_repository_1.CustomerRepository])

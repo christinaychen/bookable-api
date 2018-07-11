@@ -3,6 +3,7 @@ import { CustomerRepository } from "../repositories/customer.repository";
 import { get, param, HttpErrors, post, requestBody } from "@loopback/rest";
 import { Customer } from '../models/customer';
 import { sign, verify } from 'jsonwebtoken';
+import * as bcrypt from 'bcrypt';
 
 // Uncomment these imports to begin using these cool features!
 
@@ -25,8 +26,19 @@ export class CustomerController {
     if (userExists) {
       throw new HttpErrors.BadRequest('User already exists');
     }
-    let createdUser = await this.customerRepo.create(customer);
-    return createdUser;
+
+
+    let hashedPassword = await bcrypt.hash(customer.password, 10);
+    var customerToStore = new Customer();
+    customerToStore.customerId = customer.customerId;
+    customerToStore.name = customer.name;
+    customerToStore.age = customer.age;
+    customerToStore.email = customer.email;
+    customerToStore.password = hashedPassword;
+    let storedCustomer = await this.customerRepo.create(customerToStore);
+
+
+    return storedCustomer;
   }
 
   @get("/verify")
@@ -53,7 +65,7 @@ export class CustomerController {
       throw new HttpErrors.Unauthorized('All fields required');
     }
 
-    let userExists: boolean = !!(await this.customerRepo.count({
+    /*let userExists: boolean = !!(await this.customerRepo.count({
       and: [
         { email: customer.email },
         { password: customer.password },
@@ -62,21 +74,26 @@ export class CustomerController {
 
     if (!userExists) {
       throw new HttpErrors.Unauthorized('Invalid credentials');
-    }
+    } */
 
     let user = await this.customerRepo.findOne({
       where: {
         and: [
           { email: customer.email },
-          { password: customer.password }
         ]
       },
     }) as Customer;
+
+    if (!await bcrypt.compare(customer.password, user.password)) {
+      throw new HttpErrors.Unauthorized('invalid credentials');
+    }
+
 
     let jwf = sign({
       Customer: {
         id: user.id,
         email: user.email,
+        name: user.name
       }
     }, 'shh', {
         issuer: 'auth.ix.co.za',
