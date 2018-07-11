@@ -44,7 +44,7 @@ let CustomerController = class CustomerController {
     }
     verifyToken(jwt) {
         try {
-            let payload = jsonwebtoken_1.verify(jwt, "qwerty");
+            let payload = jsonwebtoken_1.verify(jwt, "shh");
             return payload;
         }
         catch (err) {
@@ -55,16 +55,14 @@ let CustomerController = class CustomerController {
         if (!customer.email || !customer.password) {
             throw new rest_1.HttpErrors.Unauthorized('All fields required');
         }
-        /*let userExists: boolean = !!(await this.customerRepo.count({
-          and: [
-            { email: customer.email },
-            { password: customer.password },
-          ],
+        let userExists = !!(await this.customerRepo.count({
+            and: [
+                { email: customer.email }
+            ],
         }));
-    
         if (!userExists) {
-          throw new HttpErrors.Unauthorized('Invalid credentials');
-        } */
+            throw new rest_1.HttpErrors.Unauthorized('Invalid credentials');
+        }
         let user = await this.customerRepo.findOne({
             where: {
                 and: [

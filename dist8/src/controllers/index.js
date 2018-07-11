@@ -10,4 +10,5 @@ __export(require("./seating-map.controller"));
 __export(require("./venue.controller"));
 __export(require("./venue-rating.controller"));
 __export(require("./venue-tag.controller"));
+__export(require("./total-purchase.controller"));
 //# sourceMappingURL=index.js.map

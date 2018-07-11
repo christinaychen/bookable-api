@@ -16,6 +16,7 @@ const repository_1 = require("@loopback/repository");
 const venue_tag_repository_1 = require("../repositories/venue-tag.repository");
 const rest_1 = require("@loopback/rest");
 const venue_repository_1 = require("../repositories/venue.repository");
+const jsonwebtoken_1 = require("jsonwebtoken");
 // Uncomment these imports to begin using these cool features!
 // import {inject} from '@loopback/context';
 let VenueTagController = class VenueTagController {
@@ -36,6 +37,15 @@ let VenueTagController = class VenueTagController {
         },
       });
     } */
+    verifyToken(jwt) {
+        try {
+            let payload = jsonwebtoken_1.verify(jwt, "shh");
+            return payload;
+        }
+        catch (err) {
+            throw new rest_1.HttpErrors.Unauthorized("Invalid token");
+        }
+    }
     async getAllTagsForVenue(venueId) {
         let allVenues = await this.venueTagRepo.find();
         let tagList = [];
@@ -57,6 +67,13 @@ let VenueTagController = class VenueTagController {
         return venueList;
     }
 };
+__decorate([
+    rest_1.get("/verify"),
+    __param(0, rest_1.param.query.string("jwt")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], VenueTagController.prototype, "verifyToken", null);
 __decorate([
     rest_1.get("/tags/{venueId}"),
     __param(0, rest_1.param.query.number("venueId")),

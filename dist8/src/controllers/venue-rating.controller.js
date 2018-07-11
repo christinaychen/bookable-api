@@ -19,6 +19,7 @@ const venue_rating_repository_1 = require("../repositories/venue-rating.reposito
 const rest_1 = require("@loopback/rest");
 const venue_1 = require("../models/venue");
 const venue_rating_1 = require("../models/venue-rating");
+const jsonwebtoken_1 = require("jsonwebtoken");
 // Uncomment these imports to begin using these cool features!
 // import {inject} from '@loopback/context';
 let VenueRatingController = class VenueRatingController {
@@ -26,6 +27,15 @@ let VenueRatingController = class VenueRatingController {
         this.venueRepo = venueRepo;
         this.ratingRepo = ratingRepo;
         this.venueRatingRepo = venueRatingRepo;
+    }
+    verifyToken(jwt) {
+        try {
+            let payload = jsonwebtoken_1.verify(jwt, "shh");
+            return payload;
+        }
+        catch (err) {
+            throw new rest_1.HttpErrors.Unauthorized("Invalid token");
+        }
     }
     async getRatings(venue) {
         return await this.ratingRepo.find({
@@ -43,6 +53,13 @@ let VenueRatingController = class VenueRatingController {
         return await this.venueRatingRepo.create(venueRating);
     }
 };
+__decorate([
+    rest_1.get("/verify"),
+    __param(0, rest_1.param.query.string("jwt")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], VenueRatingController.prototype, "verifyToken", null);
 __decorate([
     rest_1.get("/rating"),
     __param(0, rest_1.param.path.string("venue")),

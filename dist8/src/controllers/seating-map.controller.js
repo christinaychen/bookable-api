@@ -16,9 +16,19 @@ const rest_1 = require("@loopback/rest");
 const seating_map_1 = require("../models/seating-map");
 const repository_1 = require("@loopback/repository");
 const seating_map_repository_1 = require("../repositories/seating-map.repository");
+const jsonwebtoken_1 = require("jsonwebtoken");
 let SeatingMapController = class SeatingMapController {
     constructor(SeatingMapRepo) {
         this.SeatingMapRepo = SeatingMapRepo;
+    }
+    verifyToken(jwt) {
+        try {
+            let payload = jsonwebtoken_1.verify(jwt, "shh");
+            return payload;
+        }
+        catch (err) {
+            throw new rest_1.HttpErrors.Unauthorized("Invalid token");
+        }
     }
     async createSeatingMap(seatingMap) {
         let createdSeatingMap = await this.SeatingMapRepo.create(seatingMap);
@@ -26,6 +36,13 @@ let SeatingMapController = class SeatingMapController {
         return createdSeatingMap;
     }
 };
+__decorate([
+    rest_1.get("/verify"),
+    __param(0, rest_1.param.query.string("jwt")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], SeatingMapController.prototype, "verifyToken", null);
 __decorate([
     rest_1.post("/Maps"),
     __param(0, rest_1.requestBody()),
