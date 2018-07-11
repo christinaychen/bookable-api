@@ -13,13 +13,16 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const rest_1 = require("@loopback/rest");
-const seating_map_1 = require("../models/seating-map");
 const repository_1 = require("@loopback/repository");
 const seating_map_repository_1 = require("../repositories/seating-map.repository");
 const jsonwebtoken_1 = require("jsonwebtoken");
+const order_item_repository_1 = require("../repositories/order-item.repository");
+const venue_repository_1 = require("../repositories/venue.repository");
 let SeatingMapController = class SeatingMapController {
-    constructor(SeatingMapRepo) {
+    constructor(SeatingMapRepo, orderItemRepo, venueRepo) {
         this.SeatingMapRepo = SeatingMapRepo;
+        this.orderItemRepo = orderItemRepo;
+        this.venueRepo = venueRepo;
     }
     verifyToken(jwt) {
         try {
@@ -30,10 +33,30 @@ let SeatingMapController = class SeatingMapController {
             throw new rest_1.HttpErrors.Unauthorized("Invalid token");
         }
     }
-    async createSeatingMap(seatingMap) {
-        let createdSeatingMap = await this.SeatingMapRepo.create(seatingMap);
-        createdSeatingMap.fill();
-        return createdSeatingMap;
+    async updateMap(venueId) {
+        var venue = await this.venueRepo.findById(venueId);
+        var matrix = Array();
+        matrix = [];
+        for (let i = 0; i < venue.row; i++) {
+            matrix[i] = [];
+            for (let j = 0; j < venue.column; j++) {
+                matrix[i][j] = 10;
+            }
+        }
+        var venues = await this.orderItemRepo.find();
+        var specificVenue = [];
+        for (let venue of venues) {
+            if (venue.venueId == venueId) {
+                specificVenue.push(venue);
+            }
+        }
+        for (let reservation of specificVenue) {
+            console.log(reservation.x);
+            console.log(reservation.y);
+            matrix[reservation.x][reservation.y] = -1;
+        }
+        console.log(matrix[3][4]);
+        return matrix;
     }
 };
 __decorate([
@@ -44,15 +67,19 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], SeatingMapController.prototype, "verifyToken", null);
 __decorate([
-    rest_1.post("/Maps"),
-    __param(0, rest_1.requestBody()),
+    rest_1.post("/Maps/{venueId}"),
+    __param(0, rest_1.param.path.number("venueId")),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [seating_map_1.SeatingMap]),
+    __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
-], SeatingMapController.prototype, "createSeatingMap", null);
+], SeatingMapController.prototype, "updateMap", null);
 SeatingMapController = __decorate([
     __param(0, repository_1.repository(seating_map_repository_1.SeatingMapRepository.name)),
-    __metadata("design:paramtypes", [seating_map_repository_1.SeatingMapRepository])
+    __param(1, repository_1.repository(order_item_repository_1.OrderItemRepository.name)),
+    __param(2, repository_1.repository(venue_repository_1.VenueRepository.name)),
+    __metadata("design:paramtypes", [seating_map_repository_1.SeatingMapRepository,
+        order_item_repository_1.OrderItemRepository,
+        venue_repository_1.VenueRepository])
 ], SeatingMapController);
 exports.SeatingMapController = SeatingMapController;
 //# sourceMappingURL=seating-map.controller.js.map

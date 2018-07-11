@@ -60,12 +60,6 @@ __decorate([
     repository_1.property({
         type: "number"
     }),
-    __metadata("design:type", Array)
-], SeatingMap.prototype, "Layout", void 0);
-__decorate([
-    repository_1.property({
-        type: "number"
-    }),
     __metadata("design:type", Number)
 ], SeatingMap.prototype, "Rows", void 0);
 __decorate([

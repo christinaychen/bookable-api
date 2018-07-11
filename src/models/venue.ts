@@ -1,50 +1,58 @@
 import { model, property, Entity } from "@loopback/repository";
 
-@model({
-  name: "Venue"
-})
+@model()
 export class Venue extends Entity {
 
   @property({
     type: "number",
-    id: true
+    id: true,
   })
-  VenueId: number;
+  venueId?: number;
 
   @property({
     type: "string"
   })
-  Name: string;
+  name: string;
 
   @property({
     type: "string"
   })
-  Type: string;
+  type: string;
+
+  @property({
+    type: "string"
+  })
+  address: string;
 
   @property({
     type: "number"
   })
-  Address: number;
-
-  @property({
-    type: "number"
-  })
-  MapId: number;
+  mapId: number;
 
   @property({
     type: "string"
   })
-  Latitude: string;
+  latitude: string;
 
   @property({
     type: "string"
   })
-  Longitude: string;
+  longitude: string;
 
   @property({
     type: "number"
   })
-  Rating: number;
+  rating: number;
+
+  @property({
+    type: "number"
+  })
+  column: number;
+
+  @property({
+    type: "number"
+  })
+  row: number;
 
   getPrice() {
     return this.Price;

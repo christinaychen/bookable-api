@@ -24,11 +24,6 @@ export class SeatingMap extends Entity {
   @property({
     type: "number"
   })
-  Layout: Array<Array<number>>;
-
-  @property({
-    type: "number"
-  })
   Rows: number;
 
   @property({

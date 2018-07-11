@@ -10,80 +10,68 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const repository_1 = require("@loopback/repository");
-let Venue = class Venue extends repository_1.Entity {
-    getPrice() {
-        return this.Price;
-    }
+let OrderItem = class OrderItem extends repository_1.Entity {
     getId() {
-        return this.VenueId;
+        return this.id;
     }
-    getName() {
-        return this.Name;
+    getRating() {
+        return this.ratingValue;
+    }
+    getVenueId() {
+        return this.venueId;
     }
 };
 __decorate([
     repository_1.property({
-        type: "number",
+        type: 'number',
         id: true,
     }),
     __metadata("design:type", Number)
-], Venue.prototype, "venueId", void 0);
+], OrderItem.prototype, "orderItemId", void 0);
 __decorate([
     repository_1.property({
-        type: "string"
-    }),
-    __metadata("design:type", String)
-], Venue.prototype, "name", void 0);
-__decorate([
-    repository_1.property({
-        type: "string"
-    }),
-    __metadata("design:type", String)
-], Venue.prototype, "type", void 0);
-__decorate([
-    repository_1.property({
-        type: "string"
-    }),
-    __metadata("design:type", String)
-], Venue.prototype, "address", void 0);
-__decorate([
-    repository_1.property({
-        type: "number"
+        type: "number",
     }),
     __metadata("design:type", Number)
-], Venue.prototype, "mapId", void 0);
+], OrderItem.prototype, "venueId", void 0);
 __decorate([
     repository_1.property({
-        type: "string"
+        type: "number",
+    }),
+    __metadata("design:type", Number)
+], OrderItem.prototype, "purchaseId", void 0);
+__decorate([
+    repository_1.property({
+        type: "number",
+    }),
+    __metadata("design:type", Number)
+], OrderItem.prototype, "customerId", void 0);
+__decorate([
+    repository_1.property({
+        type: "number",
+    }),
+    __metadata("design:type", Number)
+], OrderItem.prototype, "x", void 0);
+__decorate([
+    repository_1.property({
+        type: "number",
+    }),
+    __metadata("design:type", Number)
+], OrderItem.prototype, "y", void 0);
+__decorate([
+    repository_1.property({
+        type: "string",
     }),
     __metadata("design:type", String)
-], Venue.prototype, "latitude", void 0);
+], OrderItem.prototype, "time", void 0);
 __decorate([
     repository_1.property({
-        type: "string"
-    }),
-    __metadata("design:type", String)
-], Venue.prototype, "longitude", void 0);
-__decorate([
-    repository_1.property({
-        type: "number"
+        type: "number",
     }),
     __metadata("design:type", Number)
-], Venue.prototype, "rating", void 0);
-__decorate([
-    repository_1.property({
-        type: "number"
-    }),
-    __metadata("design:type", Number)
-], Venue.prototype, "column", void 0);
-__decorate([
-    repository_1.property({
-        type: "number"
-    }),
-    __metadata("design:type", Number)
-], Venue.prototype, "row", void 0);
-Venue = __decorate([
+], OrderItem.prototype, "amount", void 0);
+OrderItem = __decorate([
     repository_1.model()
-], Venue);
-exports.Venue = Venue;
-//# sourceMappingURL=Venue.js.map
+], OrderItem);
+exports.OrderItem = OrderItem;
+//# sourceMappingURL=order-item.js.map
