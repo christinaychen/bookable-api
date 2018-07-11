@@ -35,6 +35,19 @@ let TotalPurchaseController = class TotalPurchaseController {
     async purchaseItems(finalPurchase) {
         return await this.totalPurchaseRepo.create(finalPurchase);
     }
+<<<<<<< HEAD
+    async stripePayment() {
+        var stripe = require("stripe")("sk_test_rsAlt3zwizIhcEZFFR7o0xGY");
+        const charge = stripe.charges.create({
+            amount: 999,
+            currency: 'usd',
+            source: 'tok_visa',
+            receipt_email: 'jenny.rosen@example.com',
+        });
+        return charge;
+    }
+=======
+>>>>>>> a92d0f4cd489c027d2be017134ef47a0452b4635
 };
 __decorate([
     rest_1.get("/verify"),
@@ -50,6 +63,15 @@ __decorate([
     __metadata("design:paramtypes", [total_purchase_1.totalPurchase]),
     __metadata("design:returntype", Promise)
 ], TotalPurchaseController.prototype, "purchaseItems", null);
+<<<<<<< HEAD
+__decorate([
+    rest_1.post("/payment"),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], TotalPurchaseController.prototype, "stripePayment", null);
+=======
+>>>>>>> a92d0f4cd489c027d2be017134ef47a0452b4635
 TotalPurchaseController = __decorate([
     __param(0, repository_1.repository(total_purchase_repository_1.TotalPurchaseRepository.name)),
     __metadata("design:paramtypes", [total_purchase_repository_1.TotalPurchaseRepository])

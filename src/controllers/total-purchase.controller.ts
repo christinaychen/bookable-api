@@ -31,6 +31,20 @@ export class TotalPurchaseController {
     return await this.totalPurchaseRepo.create(finalPurchase);
   }
 
+  @post("/payment")
+  async stripePayment(
+  ) {
+    var stripe = require("stripe")("sk_test_rsAlt3zwizIhcEZFFR7o0xGY");
+
+    const charge = stripe.charges.create({
+      amount: 999,
+      currency: 'usd',
+      source: 'tok_visa',
+      receipt_email: 'jenny.rosen@example.com',
+    });
+    return charge;
+  }
+
 
 
 }
