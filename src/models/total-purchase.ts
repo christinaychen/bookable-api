@@ -14,7 +14,7 @@ export class totalPurchase extends Entity {
   customerId: number;
 
   @property({
-    type: "DateTime",
+    type: "string",
   })
   purchaseDate: Date;
 
