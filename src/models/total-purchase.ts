@@ -18,6 +18,7 @@ export class totalPurchase extends Entity {
   })
   purchaseDate: Date;
 
+
   @property({
     type: "number",
   })

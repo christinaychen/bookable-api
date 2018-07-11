@@ -30,12 +30,15 @@ __decorate([
 ], totalPurchase.prototype, "customerId", void 0);
 __decorate([
     repository_1.property({
+<<<<<<< HEAD
         type: "string",
     }),
     __metadata("design:type", Date)
 ], totalPurchase.prototype, "purchaseDate", void 0);
 __decorate([
     repository_1.property({
+=======
+>>>>>>> a92d0f4cd489c027d2be017134ef47a0452b4635
         type: "number",
     }),
     __metadata("design:type", Number)

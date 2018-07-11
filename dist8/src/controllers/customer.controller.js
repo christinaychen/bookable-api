@@ -40,7 +40,18 @@ let CustomerController = class CustomerController {
         customerToStore.email = customer.email;
         customerToStore.password = hashedPassword;
         let storedCustomer = await this.customerRepo.create(customerToStore);
-        return storedCustomer;
+        let jwt = jsonwebtoken_1.sign({
+            user: {
+                id: storedCustomer.id,
+                email: storedCustomer.email
+            },
+        }, 'shh', {
+            issuer: 'auth.ix.com',
+            audience: 'ix.com',
+        });
+        return {
+            token: jwt,
+        };
     }
     verifyToken(jwt) {
         try {
