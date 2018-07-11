@@ -40,8 +40,6 @@ export class CustomerController {
     }
   }
 
-
-
   @post("/login")
   async loginUser(
     @requestBody() customer: Customer
