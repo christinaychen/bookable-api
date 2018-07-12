@@ -51,11 +51,8 @@ let SeatingMapController = class SeatingMapController {
             }
         }
         for (let reservation of specificVenue) {
-            console.log(reservation.x);
-            console.log(reservation.y);
             matrix[reservation.x][reservation.y] = -1;
         }
-        console.log(matrix[3][4]);
         return matrix;
     }
 };
