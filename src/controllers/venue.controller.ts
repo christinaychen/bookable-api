@@ -6,6 +6,7 @@ import { get, param, HttpErrors, post, requestBody } from "@loopback/rest";
 import { Venue } from "../models/venue";
 import { verify } from "jsonwebtoken";
 import { getDefaultSettings } from "http2";
+import { VenueTagRepository } from "../repositories/venue-tag.repository";
 
 
 // Uncomment these imports to begin using these cool features!
@@ -14,7 +15,8 @@ import { getDefaultSettings } from "http2";
 
 export class VenueController {
   constructor(@repository(VenueRepository.name) private venueRepo: VenueRepository,
-    @repository(RatingRepository.name) private ratingRepo: RatingRepository) { }
+    @repository(RatingRepository.name) private ratingRepo: RatingRepository,
+    @repository(VenueTagRepository.name) private venueTagRepo: VenueTagRepository) { }
 
   @post("/registerVenue")
   async registerVenue(@requestBody() venue: Venue) {
@@ -41,9 +43,9 @@ export class VenueController {
       if (venueExists) {
         throw new HttpErrors.BadRequest('Specific Venue already exists');
       }
-  
+
       return await this.venueRepo.create(venue);
-  
+
   }*/
 
 

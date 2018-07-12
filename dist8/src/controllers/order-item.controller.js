@@ -69,7 +69,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], Order_itemController.prototype, "createOrder", null);
 __decorate([
-    rest_1.post("/makeOrder"),
+    rest_1.post("/makem"),
     __param(0, rest_1.requestBody()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [order_item_1.OrderItem]),

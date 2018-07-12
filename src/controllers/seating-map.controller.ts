@@ -47,7 +47,7 @@ export class SeatingMapController {
       }
     }
     for (let reservation of specificVenue) {
-      matrix[reservation.x][reservation.y] = -1;
+      matrix[reservation.y][reservation.x] = -1;
     }
     return matrix;
 

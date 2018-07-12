@@ -18,11 +18,13 @@ const rating_repository_1 = require("../repositories/rating.repository");
 const rest_1 = require("@loopback/rest");
 const venue_1 = require("../models/venue");
 const jsonwebtoken_1 = require("jsonwebtoken");
+const venue_tag_repository_1 = require("../repositories/venue-tag.repository");
 // Uncomment these imports to begin using these cool features!
 let VenueController = class VenueController {
-    constructor(venueRepo, ratingRepo) {
+    constructor(venueRepo, ratingRepo, venueTagRepo) {
         this.venueRepo = venueRepo;
         this.ratingRepo = ratingRepo;
+        this.venueTagRepo = venueTagRepo;
     }
     async registerVenue(venue) {
         if (!venue.name || !venue.type) {
@@ -46,9 +48,9 @@ let VenueController = class VenueController {
         if (venueExists) {
           throw new HttpErrors.BadRequest('Specific Venue already exists');
         }
-    
+  
         return await this.venueRepo.create(venue);
-    
+  
     }*/
     verifyToken(jwt) {
         try {
@@ -77,8 +79,10 @@ __decorate([
 VenueController = __decorate([
     __param(0, repository_1.repository(venue_repository_1.VenueRepository.name)),
     __param(1, repository_1.repository(rating_repository_1.RatingRepository.name)),
+    __param(2, repository_1.repository(venue_tag_repository_1.VenueTagRepository.name)),
     __metadata("design:paramtypes", [venue_repository_1.VenueRepository,
-        rating_repository_1.RatingRepository])
+        rating_repository_1.RatingRepository,
+        venue_tag_repository_1.VenueTagRepository])
 ], VenueController);
 exports.VenueController = VenueController;
 //# sourceMappingURL=venue.controller.js.map
