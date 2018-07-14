@@ -3,10 +3,15 @@ import { SeatingMap } from "../models/seating-map";
 import { repository } from "@loopback/repository";
 import { SeatingMapRepository } from "../repositories/seating-map.repository";
 import { verify } from "jsonwebtoken";
+import { OrderItemRepository } from "../repositories/order-item.repository";
+import { VenueRepository } from "../repositories/venue.repository";
 
 export class SeatingMapController {
   constructor(
-    @repository(SeatingMapRepository.name) private SeatingMapRepo: SeatingMapRepository
+    @repository(SeatingMapRepository.name) private SeatingMapRepo: SeatingMapRepository,
+    @repository(OrderItemRepository.name) private orderItemRepo: OrderItemRepository,
+    @repository(VenueRepository.name) private venueRepo: VenueRepository
+
   ) { }
 
   @get("/verify")
@@ -20,16 +25,43 @@ export class SeatingMapController {
     }
   }
 
-  @post("/Maps")
+  @post("/Maps/{venueId}")
+  async updateMap(
+    @param.path.number("venueId") venueId: number
+  ) {
+    var venue = await this.venueRepo.findById(venueId);
+    var matrix = Array<Array<number>>();
+    matrix = [];
+    for (let i = 0; i < venue.row; i++) {
+      matrix[i] = [];
+      for (let j = 0; j < venue.column; j++) {
+        matrix[i][j] = 10;
+      }
+    }
+
+    var venues = await this.orderItemRepo.find();
+    var specificVenue = [];
+    for (let venue of venues) {
+      if (venue.venueId == venueId) {
+        specificVenue.push(venue);
+      }
+    }
+    for (let reservation of specificVenue) {
+      matrix[reservation.y][reservation.x] = -1;
+    }
+    return matrix;
+
+  }
+  /* @post("/Maps")
   async createSeatingMap(
     @requestBody() seatingMap: SeatingMap
   ): Promise<SeatingMap> {
 
     let createdSeatingMap = await this.SeatingMapRepo.create(seatingMap);
-    createdSeatingMap.fill();
-    return createdSeatingMap;
+    //createdSeatingMap.fill();
+    //return createdSeatingMap;
 
-  }
+  } */
 
   /*@post("/Maps/{Row}/{Column}")
   async MakeReservation(

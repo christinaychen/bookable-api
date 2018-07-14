@@ -5,6 +5,8 @@ import { Rating } from "../models/rating";
 import { get, param, HttpErrors, post, requestBody } from "@loopback/rest";
 import { Venue } from "../models/venue";
 import { verify } from "jsonwebtoken";
+import { getDefaultSettings } from "http2";
+import { VenueTagRepository } from "../repositories/venue-tag.repository";
 
 
 // Uncomment these imports to begin using these cool features!
@@ -13,7 +15,40 @@ import { verify } from "jsonwebtoken";
 
 export class VenueController {
   constructor(@repository(VenueRepository.name) private venueRepo: VenueRepository,
-    @repository(RatingRepository.name) private ratingRepo: RatingRepository) { }
+    @repository(RatingRepository.name) private ratingRepo: RatingRepository,
+    @repository(VenueTagRepository.name) private venueTagRepo: VenueTagRepository) { }
+
+  @post("/registerVenue")
+  async registerVenue(@requestBody() venue: Venue) {
+    if (!venue.name || !venue.type) {
+      throw new HttpErrors.BadRequest('All fields required');
+    }
+    /*
+        let venueExists: boolean = !!(await this.venueRepo.count({ venueId: venue.Id }));
+        if (venueExists) {
+          throw new HttpErrors.BadRequest('Specific Venue already exists');
+        } */
+
+    return await this.venueRepo.create(venue);
+
+  }
+  /*
+    @get("/getVenues")
+    async getVenue(@requestBody() venue: Venue) {
+      if (!venue.name || !venue.type) {
+        throw new HttpErrors.BadRequest('All fields required');
+      }
+      /*
+      let venueExists: boolean = !!(await this.venueRepo.count({ venueId: venue.Id }));
+      if (venueExists) {
+        throw new HttpErrors.BadRequest('Specific Venue already exists');
+      }
+
+      return await this.venueRepo.create(venue);
+
+  }*/
+
+
 
   @get("/verify")
   verifyToken(@param.query.string("jwt") jwt: string) {
