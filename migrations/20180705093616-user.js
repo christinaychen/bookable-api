@@ -172,6 +172,112 @@ exports.up = function (db, callback) {
     },
   }, callback);
 
+  db.createTable('venue', {
+    venueId: {
+      type: 'int',
+      primaryKey: true,
+      autoIncrement: true
+    },
+    name: {
+      type: 'string',
+      length: 255
+    },
+    type: {
+      type: 'string',
+      length: 255
+    },
+    address: {
+      type: 'string',
+      length: 255
+    },
+    mapId: {
+      type: 'int',
+    },
+    latitude: {
+      type: 'string',
+      length: 255
+    },
+    longitude: {
+      type: 'string',
+      length: 255
+    },
+    rating: {
+      type: 'int',
+    }
+  }, callback);
+
+  db.createTable('venueRating', {
+    venueRatingId: {
+      type: 'int',
+      primaryKey: true,
+      autoIncrement: true
+    },
+    venueId: {
+      type: 'int',
+    },
+    RatingValue: {
+      type: 'int',
+    },
+  }, callback);
+
+  db.createTable('venueTags', {
+    venueTagId: {
+      type: 'int',
+      primaryKey: true,
+      autoIncrement: true
+    },
+    venueId: {
+      type: 'int',
+    },
+    tagType: {
+      type: 'string',
+      length: 255
+    },
+  }, callback);
+
+  db.createTable('orderItem', {
+    orderItemId: {
+      type: 'int',
+      primaryKey: true,
+      autoIncrement: true
+    },
+    venueId: {
+      type: 'int',
+    },
+    purchaseId: {
+      type: 'int',
+    },
+    customerId: {
+      type: 'int',
+    },
+    x: {
+      type: 'int',
+    },
+    y: {
+      type: 'int',
+    },
+    time: {
+      type: 'datetime',
+    },
+  }, callback);
+
+  db.createTable('totalPurchase', {
+    purchaseId: {
+      type: 'int',
+      primaryKey: true,
+      autoIncrement: true
+    },
+    customerId: {
+      type: 'int',
+    },
+    purchaseDate: {
+      type: 'datetime',
+    },
+    overallPrice: {
+      type: 'int',
+    },
+  }, callback);
+
 
   //   db.createTable('user_test', {
   //     id: {
@@ -216,111 +322,7 @@ exports.up = function (db, callback) {
 // },
 //   }, callback);
 
-db.createTable('venue', {
-  venueId: {
-    type: 'int',
-    primaryKey: true,
-    autoIncrement: true
-  },
-  name: {
-    type: 'string',
-    length: 255
-  },
-  type: {
-    type: 'string',
-    length: 255
-  },
-  address: {
-    type: 'string',
-    length: 255
-  },
-  mapId: {
-    type: 'int',
-  },
-  latitude: {
-    type: 'string',
-    length: 255
-  },
-  longitude: {
-    type: 'string',
-    length: 255
-  },
-  rating: {
-    type: 'int',
-  }
-}, callback);
 
-db.createTable('venueRating', {
-  venueRatingId: {
-    type: 'int',
-    primaryKey: true,
-    autoIncrement: true
-  },
-  venueId: {
-    type: 'int',
-  },
-  RatingValue: {
-    type: 'int',
-  },
-}, callback);
-
-db.createTable('venueTags', {
-  venueTagId: {
-    type: 'int',
-    primaryKey: true,
-    autoIncrement: true
-  },
-  venueId: {
-    type: 'int',
-  },
-  tagType: {
-    type: 'string',
-    length: 255
-  },
-}, callback);
-
-db.createTable('orderItem', {
-  orderItemId: {
-    type: 'int',
-    primaryKey: true,
-    autoIncrement: true
-  },
-  venueId: {
-    type: 'int',
-  },
-  purchaseId: {
-    type: 'int',
-  },
-  customerId: {
-    type: 'int',
-  },
-  x: {
-    type: 'int',
-  },
-  y: {
-    type: 'int',
-  },
-  time: {
-    type: 'datetime',
-  },
-}, callback);
-
-db.createTable('totalPurchase', {
-  purchaseId: {
-    type: 'int',
-    primaryKey: true,
-    autoIncrement: true
-  },
-  customerId: {
-    type: 'int',
-  },
-  purchaseDate: {
-    type: 'datetime',
-  },
-  overallPrice: {
-    type: 'int',
-  },
-}, callback);
 
 
 exports.down = function (db) {
