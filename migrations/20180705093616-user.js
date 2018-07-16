@@ -16,33 +16,6 @@ exports.setup = function (options, seedLink) {
 };
 
 exports.up = function (db, callback) {
-  /* db.createTable('users', {
-    usersId: {
-
-  db.createTable('customer', {
-    customerId: {
-      type: 'int',
-      primaryKey: true,
-      autoIncrement: true
-    },
-    name: {
-      type: 'string',
-      length: 255
-    },
-    age: {
-      type: 'int',
-    },
-    email: {
-      type: 'string',
-      length: 255,
-    },
-    password: {
-      type: 'string',
-      length: 255,
-    }
-  }, callback);
-}; */
-  /*
   db.createTable('customer', {
     customerId: {
       type: 'int',
@@ -111,6 +84,12 @@ exports.up = function (db, callback) {
     },
     rating: {
       type: 'int',
+    },
+    row: {
+      type: 'int',
+    },
+    column: {
+      type: 'int'
     }
   }, callback);
   db.createTable('venueRating', {
@@ -152,6 +131,11 @@ exports.up = function (db, callback) {
     },
     purchaseId: {
       type: 'int',
+    },
+    amount: {
+      type: 'int'
+    }
+  }, callback);
 
   db.createTable('rating', {
     ratingId: {
@@ -188,7 +172,7 @@ exports.up = function (db, callback) {
     },
   }, callback);
 
-  */
+
   //   db.createTable('user_test', {
   //     id: {
   //       type: 'int',
@@ -221,23 +205,16 @@ exports.up = function (db, callback) {
   //   )
   // };
 
-  db.addColumn('venue', 'row', {
-    type: 'int'
-  }, db.addColumn('venue', 'column', {
-    type: 'int'
-  }), db.addColumn('orderItem', 'amount', {
-    type: 'int'
-  }, callback));
 
-}
-/*
-ratingValue: {
-  type: 'int',
-    },
-venueId: {
-  type: 'int'
-},
-  }, callback);
+};
+
+// ratingValue: {
+//   type: 'int',
+//     },
+// venueId: {
+//   type: 'int'
+// },
+//   }, callback);
 
 db.createTable('venue', {
   venueId: {
@@ -344,7 +321,7 @@ db.createTable('totalPurchase', {
     type: 'int',
   },
 }, callback);
-*/
+
 
 exports.down = function (db) {
   db.dropTable('customer', callback);
