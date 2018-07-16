@@ -15,7 +15,11 @@ import {
 
 export class BookableApiApplication extends BootMixin(RepositoryMixin(RestApplication)) {
   constructor(options?: ApplicationConfig) {
-    super(options);
+    super({
+      rest: {
+        port: process.env.PORT || 3000
+      }
+    });
 
     // Set up the custom sequence
     this.sequence(MySequence);
@@ -30,15 +34,18 @@ export class BookableApiApplication extends BootMixin(RepositoryMixin(RestApplic
         nested: true,
       },
     };
-
     var dataSourceConfig = new juggler.DataSource({
       name: "db",
-      connector: "loopback-connector-mysql",
-      host: 'localhost',
-      port: 3306,
-      database: 'bookable-api',
-      user: 'root',
-      password: ''
+      connector: "memory",
+
+      // var dataSourceConfig = new juggler.DataSource({
+      //   name: "db",
+      //   connector: "loopback-connector-mysql",
+      //   host: 'localhost',
+      //   port: 3306,
+      //   database: 'bookable-api',
+      //   user: 'root',
+      //   password: ''
     }); this.dataSource(dataSourceConfig);
 
   }
