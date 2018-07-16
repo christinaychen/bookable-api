@@ -9,7 +9,11 @@ const repository_1 = require("@loopback/repository");
 /* tslint:enable:no-unused-variable */
 class BookableApiApplication extends boot_1.BootMixin(repository_1.RepositoryMixin(rest_1.RestApplication)) {
     constructor(options) {
-        super(options);
+        super({
+            rest: {
+                port: process.env.PORT || 3000
+            }
+        });
         // Set up the custom sequence
         this.sequence(sequence_1.MySequence);
         this.projectRoot = __dirname;
@@ -24,12 +28,7 @@ class BookableApiApplication extends boot_1.BootMixin(repository_1.RepositoryMix
         };
         var dataSourceConfig = new repository_1.juggler.DataSource({
             name: "db",
-            connector: "loopback-connector-mysql",
-            host: 'localhost',
-            port: 3306,
-            database: 'bookable-api',
-            user: 'root',
-            password: ''
+            connector: "memory",
         });
         this.dataSource(dataSourceConfig);
     }
