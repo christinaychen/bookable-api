@@ -32,7 +32,8 @@
     "prestart": "npm run build:current",
     "start": "node .",
     "prepublishOnly": "npm run test",
-    "live": "node ."
+    "live": "node .",
+    "christina": "export NODE_ENV=christina && export DB_HOST=localhost && export DB_USER=root && export DB_PASSWORD=root && export DB_DATABASE=bookable-api && export DB_PORT=3306 && db-migrate up && npm start"
   },
   "repository": {
     "type": "git"
