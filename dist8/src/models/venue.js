@@ -86,4 +86,4 @@ Venue = __decorate([
     repository_1.model()
 ], Venue);
 exports.Venue = Venue;
-//# sourceMappingURL=Venue.js.map
+//# sourceMappingURL=venue.js.map
