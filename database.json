@@ -1,6 +1,6 @@
 {
   "defaultEnv": {
-    "env": "NODE_ENV"
+    "ENV": "NODE_ENV"
   },
   "dev": {
     "driver": "mysql",
