@@ -30,30 +30,16 @@ __decorate([
 ], totalPurchase.prototype, "customerId", void 0);
 __decorate([
     repository_1.property({
+        type: 'string',
+    }),
+    __metadata("design:type", String)
+], totalPurchase.prototype, "stripeToken", void 0);
+__decorate([
+    repository_1.property({
         type: "string",
     }),
     __metadata("design:type", Date)
 ], totalPurchase.prototype, "purchaseDate", void 0);
-__decorate([
-    repository_1.property({
-        type: "number",
-    }),
-    __metadata("design:type", Number)
-], totalPurchase.prototype, "age", void 0);
-__decorate([
-    repository_1.property({
-        type: "string",
-        required: true,
-    }),
-    __metadata("design:type", String)
-], totalPurchase.prototype, "email", void 0);
-__decorate([
-    repository_1.property({
-        type: "string",
-        required: true,
-    }),
-    __metadata("design:type", String)
-], totalPurchase.prototype, "password", void 0);
 totalPurchase = __decorate([
     repository_1.model()
 ], totalPurchase);

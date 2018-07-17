@@ -14,27 +14,15 @@ export class totalPurchase extends Entity {
   customerId: number;
 
   @property({
+    type: 'string',
+  })
+  stripeToken: string;
+
+  @property({
     type: "string",
   })
   purchaseDate: Date;
 
-
-  @property({
-    type: "number",
-  })
-  age: number;
-
-  @property({
-    type: "string",
-    required: true,
-  })
-  email: string;
-
-  @property({
-    type: "string",
-    required: true,
-  })
-  password: string;
 
   getId() {
     return this.id;
