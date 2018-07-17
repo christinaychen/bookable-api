@@ -44,6 +44,7 @@ class BookableApiApplication extends boot_1.BootMixin(repository_1.RepositoryMix
             port: process.env.DB_PORT,
             database: process.env.DB_DATABASE,
             user: process.env.DB_USER,
+            //database: process.env.DB_DATABASE,
             password: process.env.DB_PASSWORD,
         });
         this.dataSource(dataSourceConfig);
