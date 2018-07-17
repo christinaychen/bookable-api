@@ -8,8 +8,8 @@ export declare class Venue extends Entity {
     latitude: string;
     longitude: string;
     rating: number;
-    column: number;
     row: number;
+    column: number;
     getPrice(): any;
     getId(): any;
     getName(): any;

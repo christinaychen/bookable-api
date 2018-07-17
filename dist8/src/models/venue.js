@@ -75,13 +75,13 @@ __decorate([
         type: "number"
     }),
     __metadata("design:type", Number)
-], Venue.prototype, "column", void 0);
+], Venue.prototype, "row", void 0);
 __decorate([
     repository_1.property({
         type: "number"
     }),
     __metadata("design:type", Number)
-], Venue.prototype, "row", void 0);
+], Venue.prototype, "column", void 0);
 Venue = __decorate([
     repository_1.model()
 ], Venue);
