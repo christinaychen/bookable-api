@@ -1,7 +1,7 @@
 import { DefaultCrudRepository } from '@loopback/repository';
 import { inject } from '@loopback/core';
 import { DataSource } from 'loopback-datasource-juggler';
-import { Venue } from '../models/Venue';
+import { Venue } from '../models/venue';
 
 export class VenueRepository extends DefaultCrudRepository<
   Venue,

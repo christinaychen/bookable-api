@@ -12,4 +12,5 @@ __export(require("./venue-rating.controller"));
 __export(require("./venue-tag.controller"));
 __export(require("./total-purchase.controller"));
 __export(require("./order-item.controller"));
+__export(require("./amount.controller"));
 //# sourceMappingURL=index.js.map

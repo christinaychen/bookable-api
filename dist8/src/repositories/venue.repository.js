@@ -15,10 +15,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const repository_1 = require("@loopback/repository");
 const core_1 = require("@loopback/core");
 const loopback_datasource_juggler_1 = require("loopback-datasource-juggler");
-const Venue_1 = require("../models/Venue");
+const venue_1 = require("../models/venue");
 let VenueRepository = class VenueRepository extends repository_1.DefaultCrudRepository {
     constructor(datasource) {
-        super(Venue_1.Venue, datasource);
+        super(venue_1.Venue, datasource);
         this.datasource = datasource;
     }
 };

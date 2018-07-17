@@ -7,3 +7,4 @@ export * from './venue-rating.controller';
 export * from './venue-tag.controller';
 export * from './total-purchase.controller';
 export * from './order-item.controller';
+export * from './amount.controller';

@@ -26,9 +26,24 @@ class BookableApiApplication extends boot_1.BootMixin(repository_1.RepositoryMix
                 nested: true,
             },
         };
+        // var dataSourceConfig = new juggler.DataSource({
+        //   name: "db",
+        //   connector: "memory",
+        // var dataSourceConfig = new juggler.DataSource({
+        //   name: "db",
+        //   connector: "loopback-connector-mysql",
+        //   host: 'localhost',
+        //   port: 3306,
+        //   database: 'bookable-api',
+        //   user: 'root',
+        //   password: ''
         var dataSourceConfig = new repository_1.juggler.DataSource({
             name: "db",
-            connector: "memory",
+            connector: "loopback-connector-mysql",
+            host: process.env.DB_HOST,
+            port: process.env.DB_PORT,
+            user: process.env.DB_USER,
+            password: process.env.DB_PASSWORD,
         });
         this.dataSource(dataSourceConfig);
     }

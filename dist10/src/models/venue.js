@@ -10,47 +10,80 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const repository_1 = require("@loopback/repository");
-let Users = class Users extends repository_1.Entity {
+let Venue = class Venue extends repository_1.Entity {
+    getPrice() {
+        return this.Price;
+    }
     getId() {
-        return this.id;
+        return this.VenueId;
+    }
+    getName() {
+        return this.Name;
     }
 };
 __decorate([
     repository_1.property({
-        type: 'number',
-        id: true,
-        columnName: "customer_id",
-    }),
-    __metadata("design:type", Number)
-], Users.prototype, "usersId", void 0);
-__decorate([
-    repository_1.property({
-        type: "string",
-    }),
-    __metadata("design:type", String)
-], Users.prototype, "name", void 0);
-__decorate([
-    repository_1.property({
         type: "number",
+        id: true,
     }),
     __metadata("design:type", Number)
-], Users.prototype, "age", void 0);
+], Venue.prototype, "venueId", void 0);
 __decorate([
     repository_1.property({
-        type: "string",
-        required: true,
+        type: "string"
     }),
     __metadata("design:type", String)
-], Users.prototype, "email", void 0);
+], Venue.prototype, "name", void 0);
 __decorate([
     repository_1.property({
-        type: "string",
-        required: true,
+        type: "string"
     }),
     __metadata("design:type", String)
-], Users.prototype, "password", void 0);
-Users = __decorate([
+], Venue.prototype, "type", void 0);
+__decorate([
+    repository_1.property({
+        type: "string"
+    }),
+    __metadata("design:type", String)
+], Venue.prototype, "address", void 0);
+__decorate([
+    repository_1.property({
+        type: "number"
+    }),
+    __metadata("design:type", Number)
+], Venue.prototype, "mapId", void 0);
+__decorate([
+    repository_1.property({
+        type: "string"
+    }),
+    __metadata("design:type", String)
+], Venue.prototype, "latitude", void 0);
+__decorate([
+    repository_1.property({
+        type: "string"
+    }),
+    __metadata("design:type", String)
+], Venue.prototype, "longitude", void 0);
+__decorate([
+    repository_1.property({
+        type: "number"
+    }),
+    __metadata("design:type", Number)
+], Venue.prototype, "rating", void 0);
+__decorate([
+    repository_1.property({
+        type: "number"
+    }),
+    __metadata("design:type", Number)
+], Venue.prototype, "row", void 0);
+__decorate([
+    repository_1.property({
+        type: "number"
+    }),
+    __metadata("design:type", Number)
+], Venue.prototype, "column", void 0);
+Venue = __decorate([
     repository_1.model()
-], Users);
-exports.Users = Users;
-//# sourceMappingURL=users.js.map
+], Venue);
+exports.Venue = Venue;
+//# sourceMappingURL=venue.js.map

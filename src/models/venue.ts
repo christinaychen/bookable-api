@@ -47,12 +47,13 @@ export class Venue extends Entity {
   @property({
     type: "number"
   })
-  column: number;
+  row: number;
 
   @property({
     type: "number"
   })
-  row: number;
+  column: number;
+
 
   getPrice() {
     return this.Price;
