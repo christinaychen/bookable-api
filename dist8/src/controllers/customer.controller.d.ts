@@ -7,6 +7,7 @@ export declare class CustomerController {
         token: string;
     }>;
     verifyToken(jwt: string): string | object;
+    getUser(jwt: string): Promise<any>;
     loginUser(customer: Customer): Promise<{
         token: string;
     }>;

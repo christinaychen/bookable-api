@@ -65,4 +65,32 @@ export class Order_itemController {
     return await this.orderItemRepo.create(orderItem);
 
   }
+
+
+  // @post("/purchase?jwt={token}")
+  // async purchaseItem(
+  //   @requestBody() orderItem: OrderItem
+  // ) {
+  //   let stripeToken = orderItem.stripeToken;
+  //   let productId = orderItem.productId;
+  //   let orderItemToBe = new OrderItem;
+  //   orderItemToBe.stripeToken = stripeToken;
+  //   orderItemToBe.productId = productId;
+  //   return await this.orderItemRepo.create(orderItemToBe);
+  // }
+
+  // @post("/charge")
+  // async stripePayment(
+  // ) {
+  //   var stripe = require("stripe")("sk_test_rsAlt3zwizIhcEZFFR7o0xGY");
+
+  //   const charge = stripe.charges.create({
+  //     amount: 999,
+  //     currency: 'usd',
+  //     source: 'tok_visa',
+  //     receipt_email: 'jenny.rosen@example.com',
+  //   });
+  //   return charge;
+  // }
+
 }

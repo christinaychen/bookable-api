@@ -56,7 +56,17 @@ let CustomerController = class CustomerController {
     verifyToken(jwt) {
         try {
             let payload = jsonwebtoken_1.verify(jwt, "shh");
+            //payload.Customer.id
             return payload;
+        }
+        catch (err) {
+            throw new rest_1.HttpErrors.Unauthorized("Invalid token");
+        }
+    }
+    async getUser(jwt) {
+        try {
+            let payload = jsonwebtoken_1.verify(jwt, "shh");
+            return payload.Customer;
         }
         catch (err) {
             throw new rest_1.HttpErrors.Unauthorized("Invalid token");
@@ -113,6 +123,13 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], CustomerController.prototype, "verifyToken", null);
+__decorate([
+    rest_1.get("/customer"),
+    __param(0, rest_1.param.query.string("jwt")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], CustomerController.prototype, "getUser", null);
 __decorate([
     rest_1.post("/login"),
     __param(0, rest_1.requestBody()),

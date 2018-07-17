@@ -1,9 +1,8 @@
 import { TotalPurchaseRepository } from "../repositories/total-purchase.repository";
-import { totalPurchase } from "../models/total-purchase";
+import { OrderItemRepository } from "../repositories/order-item.repository";
 export declare class TotalPurchaseController {
     private totalPurchaseRepo;
-    constructor(totalPurchaseRepo: TotalPurchaseRepository);
+    private orderItemRepo;
+    constructor(totalPurchaseRepo: TotalPurchaseRepository, orderItemRepo: OrderItemRepository);
     verifyToken(jwt: string): string | object;
-    purchaseItems(finalPurchase: totalPurchase): Promise<totalPurchase>;
-    stripePayment(): Promise<any>;
 }

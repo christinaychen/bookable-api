@@ -27,7 +27,6 @@ export class CustomerController {
       throw new HttpErrors.BadRequest('User already exists');
     }
 
-
     let hashedPassword = await bcrypt.hash(customer.password, 10);
     var customerToStore = new Customer();
     customerToStore.customerId = customer.customerId;
@@ -60,7 +59,22 @@ export class CustomerController {
   verifyToken(@param.query.string("jwt") jwt: string) {
     try {
       let payload = verify(jwt, "shh");
+      //payload.Customer.id
       return payload;
+    }
+    catch (err) {
+      throw new HttpErrors.Unauthorized("Invalid token")
+    }
+  }
+
+
+  @get("/customer")
+  async getUser(
+    @param.query.string("jwt") jwt: string
+  ) {
+    try {
+      let payload = verify(jwt, "shh") as any;
+      return payload.Customer;
     }
     catch (err) {
       throw new HttpErrors.Unauthorized("Invalid token")

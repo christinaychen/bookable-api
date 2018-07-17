@@ -14,14 +14,15 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const total_purchase_repository_1 = require("../repositories/total-purchase.repository");
 const repository_1 = require("@loopback/repository");
-const total_purchase_1 = require("../models/total-purchase");
 const jsonwebtoken_1 = require("jsonwebtoken");
 const rest_1 = require("@loopback/rest");
+const order_item_repository_1 = require("../repositories/order-item.repository");
 // Uncomment these imports to begin using these cool features!
 // import {inject} from '@loopback/context';
 let TotalPurchaseController = class TotalPurchaseController {
-    constructor(totalPurchaseRepo) {
+    constructor(totalPurchaseRepo, orderItemRepo) {
         this.totalPurchaseRepo = totalPurchaseRepo;
+        this.orderItemRepo = orderItemRepo;
     }
     verifyToken(jwt) {
         try {
@@ -32,19 +33,6 @@ let TotalPurchaseController = class TotalPurchaseController {
             throw new rest_1.HttpErrors.Unauthorized("Invalid token");
         }
     }
-    async purchaseItems(finalPurchase) {
-        return await this.totalPurchaseRepo.create(finalPurchase);
-    }
-    async stripePayment() {
-        var stripe = require("stripe")("sk_test_rsAlt3zwizIhcEZFFR7o0xGY");
-        const charge = stripe.charges.create({
-            amount: 999,
-            currency: 'usd',
-            source: 'tok_visa',
-            receipt_email: 'jenny.rosen@example.com',
-        });
-        return charge;
-    }
 };
 __decorate([
     rest_1.get("/verify"),
@@ -53,22 +41,11 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], TotalPurchaseController.prototype, "verifyToken", null);
-__decorate([
-    rest_1.post("/purchase"),
-    __param(0, rest_1.param.query.string("finalPurchase")),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [total_purchase_1.totalPurchase]),
-    __metadata("design:returntype", Promise)
-], TotalPurchaseController.prototype, "purchaseItems", null);
-__decorate([
-    rest_1.post("/payment"),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
-], TotalPurchaseController.prototype, "stripePayment", null);
 TotalPurchaseController = __decorate([
     __param(0, repository_1.repository(total_purchase_repository_1.TotalPurchaseRepository.name)),
-    __metadata("design:paramtypes", [total_purchase_repository_1.TotalPurchaseRepository])
+    __param(1, repository_1.repository(order_item_repository_1.OrderItemRepository.name)),
+    __metadata("design:paramtypes", [total_purchase_repository_1.TotalPurchaseRepository,
+        order_item_repository_1.OrderItemRepository])
 ], TotalPurchaseController);
 exports.TotalPurchaseController = TotalPurchaseController;
 //# sourceMappingURL=total-purchase.controller.js.map
