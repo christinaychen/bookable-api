@@ -4,6 +4,7 @@ import { get, param, HttpErrors, post, requestBody } from "@loopback/rest";
 import { Customer } from '../models/customer';
 import { sign, verify } from 'jsonwebtoken';
 import * as bcrypt from 'bcrypt';
+import fetch from 'node-fetch';
 
 // Uncomment these imports to begin using these cool features!
 
@@ -11,6 +12,9 @@ import * as bcrypt from 'bcrypt';
 
 
 export class CustomerController {
+  public latitude: number = 36.0014;
+  public longitude: number = -78.9382;
+  public radius: number = 16093;
   constructor(@repository(CustomerRepository.name) private customerRepo: CustomerRepository) { }
 
 
@@ -67,6 +71,24 @@ export class CustomerController {
     }
   }
 
+  @get("/businesses")
+  async getBusinesses(
+    @param.query.number("latitude") latitude: number,
+    @param.query.number("longitude") longitude: number,
+    @param.query.number("radius") radius: number
+  ) {
+    let res = await fetch(`https://api.yelp.com/v3/businesses/search?latitude=${this.latitude}&longitude=${this.longitude}&radius=${this.radius}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer Nk8nZhueM7f1BxKDu4mr5i6N0ip8X1ZUXf7bLDLhOs4yjLNpDZSvWn50N_dGVcMPoyhZMJ7qUvIhj7p4pPru0wOSvaJf9B-eVulW_V-3vfXH-BPvfdQdR_8cIg1PW3Yx'
+      }
+    });
+    console.log(res);
+    let body = await res.json();
+    console.log(body);
+    return { body };
+
+  }
 
   @get("/customer")
   async getUser(
