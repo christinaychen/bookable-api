@@ -5,12 +5,14 @@ import { SeatingMapRepository } from "../repositories/seating-map.repository";
 import { verify } from "jsonwebtoken";
 import { OrderItemRepository } from "../repositories/order-item.repository";
 import { VenueRepository } from "../repositories/venue.repository";
+import { AmountRepository } from "../repositories/amount.repository";
 
 export class SeatingMapController {
   constructor(
     @repository(SeatingMapRepository.name) private SeatingMapRepo: SeatingMapRepository,
     @repository(OrderItemRepository.name) private orderItemRepo: OrderItemRepository,
-    @repository(VenueRepository.name) private venueRepo: VenueRepository
+    @repository(VenueRepository.name) private venueRepo: VenueRepository,
+    @repository(AmountRepository.name) private amountRepo: AmountRepository
 
   ) { }
 
@@ -30,12 +32,22 @@ export class SeatingMapController {
     @param.path.number("venueId") venueId: number
   ) {
     var venue = await this.venueRepo.findById(venueId);
+    let priceOfVenue = await this.amountRepo.find();
+    let flag = 0;
+    let price = 0;
     var matrix = Array<Array<number>>();
     matrix = [];
     for (let i = 0; i < venue.row; i++) {
       matrix[i] = [];
       for (let j = 0; j < venue.column; j++) {
-        matrix[i][j] = 10;
+        while (flag < priceOfVenue.length) {
+          if (priceOfVenue[flag].x == i && priceOfVenue[flag].y == j) {
+            price = priceOfVenue[flag].price;
+          }
+          flag++;
+        }
+        matrix[i][j] = price;
+        flag = 0;
       }
     }
 

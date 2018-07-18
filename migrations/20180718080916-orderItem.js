@@ -24,6 +24,8 @@ exports.up = function (db, callback) {
     type: "string",
     length: 200
   }, callback);
+
+
 };
 
 

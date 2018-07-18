@@ -16,7 +16,7 @@ export class AmountController {
   constructor(@repository(AmountRepository.name) private amountRepo: AmountRepository,
   ) { }
 
-  @post("/registerVenue")
+  @post("/registerAmount")
   async registerAmount(@requestBody() Amount: Amount) {
     /* if () {
       throw new HttpErrors.BadRequest('All fields required');

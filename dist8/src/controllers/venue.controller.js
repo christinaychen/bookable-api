@@ -37,6 +37,14 @@ let VenueController = class VenueController {
             } */
         return await this.venueRepo.create(venue);
     }
+    async getAllVenueNames() {
+        let nameList = [];
+        let list = await this.venueRepo.find();
+        for (let i = 0; i < list.length; i++) {
+            nameList[i] = list[i].name;
+        }
+        return nameList;
+    }
     /*
       @get("/getVenues")
       async getVenue(@requestBody() venue: Venue) {
@@ -69,6 +77,12 @@ __decorate([
     __metadata("design:paramtypes", [venue_1.Venue]),
     __metadata("design:returntype", Promise)
 ], VenueController.prototype, "registerVenue", null);
+__decorate([
+    rest_1.get("/getVenueNames"),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], VenueController.prototype, "getAllVenueNames", null);
 __decorate([
     rest_1.get("/verify"),
     __param(0, rest_1.param.query.string("jwt")),

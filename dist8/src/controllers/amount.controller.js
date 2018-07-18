@@ -59,7 +59,7 @@ let AmountController = class AmountController {
     }
 };
 __decorate([
-    rest_1.post("/registerVenue"),
+    rest_1.post("/registerAmount"),
     __param(0, rest_1.requestBody()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [amount_1.Amount]),

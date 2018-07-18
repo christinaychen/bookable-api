@@ -18,11 +18,13 @@ const seating_map_repository_1 = require("../repositories/seating-map.repository
 const jsonwebtoken_1 = require("jsonwebtoken");
 const order_item_repository_1 = require("../repositories/order-item.repository");
 const venue_repository_1 = require("../repositories/venue.repository");
+const amount_repository_1 = require("../repositories/amount.repository");
 let SeatingMapController = class SeatingMapController {
-    constructor(SeatingMapRepo, orderItemRepo, venueRepo) {
+    constructor(SeatingMapRepo, orderItemRepo, venueRepo, amountRepo) {
         this.SeatingMapRepo = SeatingMapRepo;
         this.orderItemRepo = orderItemRepo;
         this.venueRepo = venueRepo;
+        this.amountRepo = amountRepo;
     }
     verifyToken(jwt) {
         try {
@@ -35,12 +37,22 @@ let SeatingMapController = class SeatingMapController {
     }
     async updateMap(venueId) {
         var venue = await this.venueRepo.findById(venueId);
+        let priceOfVenue = await this.amountRepo.find();
+        let flag = 0;
+        let price = 0;
         var matrix = Array();
         matrix = [];
         for (let i = 0; i < venue.row; i++) {
             matrix[i] = [];
             for (let j = 0; j < venue.column; j++) {
-                matrix[i][j] = 10;
+                while (flag < priceOfVenue.length) {
+                    if (priceOfVenue[flag].x == i && priceOfVenue[flag].y == j) {
+                        price = priceOfVenue[flag].price;
+                    }
+                    flag++;
+                }
+                matrix[i][j] = price;
+                flag = 0;
             }
         }
         var venues = await this.orderItemRepo.find();
@@ -74,9 +86,11 @@ SeatingMapController = __decorate([
     __param(0, repository_1.repository(seating_map_repository_1.SeatingMapRepository.name)),
     __param(1, repository_1.repository(order_item_repository_1.OrderItemRepository.name)),
     __param(2, repository_1.repository(venue_repository_1.VenueRepository.name)),
+    __param(3, repository_1.repository(amount_repository_1.AmountRepository.name)),
     __metadata("design:paramtypes", [seating_map_repository_1.SeatingMapRepository,
         order_item_repository_1.OrderItemRepository,
-        venue_repository_1.VenueRepository])
+        venue_repository_1.VenueRepository,
+        amount_repository_1.AmountRepository])
 ], SeatingMapController);
 exports.SeatingMapController = SeatingMapController;
 //# sourceMappingURL=seating-map.controller.js.map
