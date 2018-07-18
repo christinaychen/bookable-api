@@ -53,7 +53,7 @@ export class BookableApiApplication extends BootMixin(RepositoryMixin(RestApplic
       connector: "loopback-connector-mysql",
       host: process.env.DB_HOST,
       port: process.env.DB_PORT,
-      //database: process.env.DB_DATABASE,
+      database: process.env.DB_DATABASE,
       user: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
     }); this.dataSource(dataSourceConfig);
