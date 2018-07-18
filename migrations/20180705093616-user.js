@@ -131,9 +131,6 @@ exports.up = function (db, callback) {
     },
     purchaseId: {
       type: 'int',
-    },
-    amount: {
-      type: 'int'
     }
   }, callback);
 

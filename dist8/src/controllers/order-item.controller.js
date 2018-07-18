@@ -15,7 +15,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const order_item_1 = require("../models/order-item");
 const repository_1 = require("@loopback/repository");
 const rating_repository_1 = require("../repositories/rating.repository");
+const payment_request_1 = require("../models/payment-request");
 const rest_1 = require("@loopback/rest");
+const jsonwebtoken_1 = require("jsonwebtoken");
 const order_item_repository_1 = require("../repositories/order-item.repository");
 // Uncomment these imports to begin using these cool features!
 // import {inject} from '@loopback/context';
@@ -23,6 +25,48 @@ let Order_itemController = class Order_itemController {
     constructor(orderItemRepo, ratingRepo) {
         this.orderItemRepo = orderItemRepo;
         this.ratingRepo = ratingRepo;
+    }
+    // @post("/purchase")
+    // async purchaseItem(
+    //   @requestBody() orderItem: OrderItem
+    // ) {
+    //   let stripeToken = orderItem.stripeToken;
+    //   let productId = orderItem.productId;
+    //   let orderItemToBe = new OrderItem;
+    //   orderItemToBe.stripeToken = stripeToken;
+    //   orderItemToBe.productId = productId;
+    //   return await this.orderItemRepo.create(orderItemToBe);
+    // }
+    // @get("/amount")
+    // async getAmount(
+    //   @param.query.string("token") token: string
+    // ) {
+    //   try {
+    //     let payload = verify(token, "shh") as any;
+    //     return payload.OrderItem;
+    //   }
+    //   catch (err) {
+    //     throw new HttpErrors.Unauthorized("Invalid token")
+    //   }
+    // }
+    async stripePayment(paymentRequest, jwt, orderItemId) {
+        try {
+            let payload = jsonwebtoken_1.verify(jwt, "shh");
+        }
+        catch (err) {
+            throw new rest_1.HttpErrors.Unauthorized("Invalid jwt");
+        }
+        var stripe = require("stripe")("sk_test_rsAlt3zwizIhcEZFFR7o0xGY");
+        this.orderitem = await this.orderItemRepo.findById({
+            where: { orderItemId: orderItemId }
+        });
+        this.amount = this.orderitem.amount;
+        const charge = stripe.charges.create({
+            amount: this.amount,
+            currency: 'usd',
+            source: paymentRequest.stripeToken,
+        });
+        return charge;
     }
     async createOrder(orderItem) {
         if (!orderItem.venueId) {
@@ -48,19 +92,16 @@ let Order_itemController = class Order_itemController {
         }
         return await this.orderItemRepo.create(orderItem);
     }
-    async makeReservation(orderItem) {
-        if (!orderItem.venueId) {
-            throw new rest_1.HttpErrors.BadRequest('Venue Required');
-        }
-        /*
-        let orderExists: boolean = !!(await this.orderItemRepo.count({ orderItemId: orderItem.Id }));
-    
-        if (orderExists) {
-          throw new HttpErrors.BadRequest('Specific Venue already exists');
-        }*/
-        return await this.orderItemRepo.create(orderItem);
-    }
 };
+__decorate([
+    rest_1.post("/charge"),
+    __param(0, rest_1.requestBody()),
+    __param(1, rest_1.param.query.string("jwt")),
+    __param(2, rest_1.param.query.number("orderItemId")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [payment_request_1.PaymentRequest, String, Number]),
+    __metadata("design:returntype", Promise)
+], Order_itemController.prototype, "stripePayment", null);
 __decorate([
     rest_1.post("/makeOrder"),
     __param(0, rest_1.requestBody()),
@@ -68,13 +109,6 @@ __decorate([
     __metadata("design:paramtypes", [order_item_1.OrderItem]),
     __metadata("design:returntype", Promise)
 ], Order_itemController.prototype, "createOrder", null);
-__decorate([
-    rest_1.post("/makem"),
-    __param(0, rest_1.requestBody()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [order_item_1.OrderItem]),
-    __metadata("design:returntype", Promise)
-], Order_itemController.prototype, "makeReservation", null);
 Order_itemController = __decorate([
     __param(0, repository_1.repository(order_item_repository_1.OrderItemRepository.name)),
     __param(1, repository_1.repository(rating_repository_1.RatingRepository.name)),

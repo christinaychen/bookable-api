@@ -8,6 +8,7 @@ export declare class OrderItem extends Entity {
     y: number;
     time: string;
     amount: number;
+    token: string;
     getId(): any;
     getRating(): any;
     getVenueId(): number;

@@ -70,6 +70,12 @@ __decorate([
     }),
     __metadata("design:type", Number)
 ], OrderItem.prototype, "amount", void 0);
+__decorate([
+    repository_1.property({
+        type: "string",
+    }),
+    __metadata("design:type", String)
+], OrderItem.prototype, "token", void 0);
 OrderItem = __decorate([
     repository_1.model()
 ], OrderItem);

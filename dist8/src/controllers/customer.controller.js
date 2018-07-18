@@ -18,11 +18,15 @@ const rest_1 = require("@loopback/rest");
 const customer_1 = require("../models/customer");
 const jsonwebtoken_1 = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const node_fetch_1 = require("node-fetch");
 // Uncomment these imports to begin using these cool features!
 // import {inject} from '@loopback/context';
 let CustomerController = class CustomerController {
     constructor(customerRepo) {
         this.customerRepo = customerRepo;
+        this.latitude = 36.0014;
+        this.longitude = -78.9382;
+        this.radius = 16093;
     }
     async registerCustomer(customer) {
         if (!customer.name || !customer.email || !customer.password) {
@@ -62,6 +66,18 @@ let CustomerController = class CustomerController {
         catch (err) {
             throw new rest_1.HttpErrors.Unauthorized("Invalid token");
         }
+    }
+    async getBusinesses(latitude, longitude, radius) {
+        let res = await node_fetch_1.default(`https://api.yelp.com/v3/businesses/search?latitude=${this.latitude}&longitude=${this.longitude}&radius=${this.radius}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer Nk8nZhueM7f1BxKDu4mr5i6N0ip8X1ZUXf7bLDLhOs4yjLNpDZSvWn50N_dGVcMPoyhZMJ7qUvIhj7p4pPru0wOSvaJf9B-eVulW_V-3vfXH-BPvfdQdR_8cIg1PW3Yx'
+            }
+        });
+        console.log(res);
+        let body = await res.json();
+        console.log(body);
+        return { body };
     }
     async getUser(jwt) {
         try {
@@ -123,6 +139,15 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], CustomerController.prototype, "verifyToken", null);
+__decorate([
+    rest_1.get("/businesses"),
+    __param(0, rest_1.param.query.number("latitude")),
+    __param(1, rest_1.param.query.number("longitude")),
+    __param(2, rest_1.param.query.number("radius")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, Number, Number]),
+    __metadata("design:returntype", Promise)
+], CustomerController.prototype, "getBusinesses", null);
 __decorate([
     rest_1.get("/customer"),
     __param(0, rest_1.param.query.string("jwt")),
