@@ -3,7 +3,7 @@ export declare class Amount extends Entity {
     amountId?: number;
     venueId: number;
     x: number;
-    y: string;
-    amount: number;
+    y: number;
+    price: number;
     getId(): any;
 }

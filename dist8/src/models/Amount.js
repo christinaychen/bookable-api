@@ -36,16 +36,16 @@ __decorate([
 ], Amount.prototype, "x", void 0);
 __decorate([
     repository_1.property({
-        type: "string",
+        type: "number",
     }),
-    __metadata("design:type", String)
+    __metadata("design:type", Number)
 ], Amount.prototype, "y", void 0);
 __decorate([
     repository_1.property({
         type: "number",
     }),
     __metadata("design:type", Number)
-], Amount.prototype, "amount", void 0);
+], Amount.prototype, "price", void 0);
 Amount = __decorate([
     repository_1.model()
 ], Amount);
