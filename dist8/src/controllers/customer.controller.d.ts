@@ -2,9 +2,6 @@ import { CustomerRepository } from "../repositories/customer.repository";
 import { Customer } from '../models/customer';
 export declare class CustomerController {
     private customerRepo;
-    latitude: number;
-    longitude: number;
-    radius: number;
     constructor(customerRepo: CustomerRepository);
     registerCustomer(customer: Customer): Promise<{
         token: string;

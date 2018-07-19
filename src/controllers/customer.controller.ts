@@ -12,9 +12,7 @@ import fetch from 'node-fetch';
 
 
 export class CustomerController {
-  public latitude: number = 36.0014;
-  public longitude: number = -78.9382;
-  public radius: number = 16093;
+
   constructor(@repository(CustomerRepository.name) private customerRepo: CustomerRepository) { }
 
 
@@ -63,7 +61,6 @@ export class CustomerController {
   verifyToken(@param.query.string("jwt") jwt: string) {
     try {
       let payload = verify(jwt, "shh");
-      //payload.Customer.id
       return payload;
     }
     catch (err) {
@@ -77,7 +74,7 @@ export class CustomerController {
     @param.query.number("longitude") longitude: number,
     @param.query.number("radius") radius: number
   ) {
-    let res = await fetch(`https://api.yelp.com/v3/businesses/search?latitude=${this.latitude}&longitude=${this.longitude}&radius=${this.radius}`, {
+    let res = await fetch(`https://api.yelp.com/v3/businesses/search?latitude=${latitude}&longitude=${longitude}&radius=${radius}`, {
       method: 'GET',
       headers: {
         'Authorization': 'Bearer Nk8nZhueM7f1BxKDu4mr5i6N0ip8X1ZUXf7bLDLhOs4yjLNpDZSvWn50N_dGVcMPoyhZMJ7qUvIhj7p4pPru0wOSvaJf9B-eVulW_V-3vfXH-BPvfdQdR_8cIg1PW3Yx'
@@ -87,8 +84,20 @@ export class CustomerController {
     let body = await res.json();
     console.log(body);
     return { body };
-
   }
+
+  // @get("/currentLocation")
+  // async getLocation(
+  //   @param.query.string("prox") prox: string
+  // ) {
+  //   let res = await fetch(`https://reverse.geocoder.cit.api.here.com/6.2/reversegeocode.json?prox=${prox}&mode=retrieveAddresses&maxresults=1&gen=8&app_id=DemoAppId01082013GAL&app_code=AJKnXv84fjrb0KIHawS0Tg`, {
+  //     method: 'GET',
+  //   });
+  //   // let body = await res.json();
+  //   // return body;
+  //   console.log(await res.text());
+  //   return res.json();
+  // }
 
   @get("/customer")
   async getUser(

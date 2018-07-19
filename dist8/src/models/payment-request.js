@@ -16,10 +16,6 @@ __decorate([
     repository_1.property(),
     __metadata("design:type", String)
 ], PaymentRequest.prototype, "stripeToken", void 0);
-__decorate([
-    repository_1.property(),
-    __metadata("design:type", Number)
-], PaymentRequest.prototype, "orderItemId", void 0);
 PaymentRequest = __decorate([
     repository_1.model()
 ], PaymentRequest);

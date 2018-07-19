@@ -50,34 +50,43 @@ export class Order_itemController {
   //   }
   // }
 
-  @post("/charge")
-  async stripePayment(@requestBody() paymentRequest: PaymentRequest,
-    @param.query.string("jwt") jwt: string,
-    @param.query.number("orderItemId") orderItemId: number
+  @get("/orderItems/{userId}")
+  async getOrderItems(
+    @param.query.number("userId") userId: number
   ) {
+    return await this.orderItemRepo.find({
+      where: { userId: userId }
+    });
+  }
+
+  @post("/charge")
+  async stripePayment(@requestBody() stripeToken: any,
+    @param.query.string("jwt") jwt: string,
+    @param.query.number("amount") amount: number
+  ) {
+
     try {
       let payload = verify(jwt, "shh");
     }
     catch (err) {
       throw new HttpErrors.Unauthorized("Invalid jwt");
     }
-    var stripe = require("stripe")("sk_test_rsAlt3zwizIhcEZFFR7o0xGY");
-
-    this.orderitem = await this.orderItemRepo.findById({
-
-      where: { orderItemId: orderItemId }
-
-    });
-
-    this.amount = this.orderitem.amount;
-
-    const charge = stripe.charges.create({
-      amount: this.amount,
-      currency: 'usd',
-      source: paymentRequest.stripeToken,
-    });
-    return charge;
+    try {
+      var stripe = require("stripe")("sk_test_rsAlt3zwizIhcEZFFR7o0xGY");
+      const charge = stripe.charges.create({
+        amount: amount * 100,
+        currency: 'usd',
+        source: 'tok_visa',
+      });
+      return charge;
+    }
+    catch (err) {
+      throw new HttpErrors.Unauthorized("Can't create charge");
+    }
   }
+
+
+
 
 
   @post("/makeOrder")
@@ -104,8 +113,6 @@ export class Order_itemController {
         return "reservation already made!";
       }
     }
-
-
     return await this.orderItemRepo.create(orderItem);
 
   }

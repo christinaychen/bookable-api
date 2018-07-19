@@ -201,6 +201,7 @@ exports.up = function (db, callback) {
     rating: {
       type: 'int',
     }
+
   }, callback);
 
   db.createTable('venueRating', {
@@ -254,7 +255,8 @@ exports.up = function (db, callback) {
       type: 'int',
     },
     time: {
-      type: 'datetime',
+      type: 'string',
+      length: 200
     },
   }, callback);
 

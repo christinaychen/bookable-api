@@ -24,9 +24,6 @@ const node_fetch_1 = require("node-fetch");
 let CustomerController = class CustomerController {
     constructor(customerRepo) {
         this.customerRepo = customerRepo;
-        this.latitude = 36.0014;
-        this.longitude = -78.9382;
-        this.radius = 16093;
     }
     async registerCustomer(customer) {
         if (!customer.name || !customer.email || !customer.password) {
@@ -60,7 +57,6 @@ let CustomerController = class CustomerController {
     verifyToken(jwt) {
         try {
             let payload = jsonwebtoken_1.verify(jwt, "shh");
-            //payload.Customer.id
             return payload;
         }
         catch (err) {
@@ -68,7 +64,7 @@ let CustomerController = class CustomerController {
         }
     }
     async getBusinesses(latitude, longitude, radius) {
-        let res = await node_fetch_1.default(`https://api.yelp.com/v3/businesses/search?latitude=${this.latitude}&longitude=${this.longitude}&radius=${this.radius}`, {
+        let res = await node_fetch_1.default(`https://api.yelp.com/v3/businesses/search?latitude=${latitude}&longitude=${longitude}&radius=${radius}`, {
             method: 'GET',
             headers: {
                 'Authorization': 'Bearer Nk8nZhueM7f1BxKDu4mr5i6N0ip8X1ZUXf7bLDLhOs4yjLNpDZSvWn50N_dGVcMPoyhZMJ7qUvIhj7p4pPru0wOSvaJf9B-eVulW_V-3vfXH-BPvfdQdR_8cIg1PW3Yx'
@@ -79,6 +75,18 @@ let CustomerController = class CustomerController {
         console.log(body);
         return { body };
     }
+    // @get("/currentLocation")
+    // async getLocation(
+    //   @param.query.string("prox") prox: string
+    // ) {
+    //   let res = await fetch(`https://reverse.geocoder.cit.api.here.com/6.2/reversegeocode.json?prox=${prox}&mode=retrieveAddresses&maxresults=1&gen=8&app_id=DemoAppId01082013GAL&app_code=AJKnXv84fjrb0KIHawS0Tg`, {
+    //     method: 'GET',
+    //   });
+    //   // let body = await res.json();
+    //   // return body;
+    //   console.log(await res.text());
+    //   return res.json();
+    // }
     async getUser(jwt) {
         try {
             let payload = jsonwebtoken_1.verify(jwt, "shh");
