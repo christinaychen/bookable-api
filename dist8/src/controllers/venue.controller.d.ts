@@ -8,5 +8,6 @@ export declare class VenueController {
     private venueTagRepo;
     constructor(venueRepo: VenueRepository, ratingRepo: RatingRepository, venueTagRepo: VenueTagRepository);
     registerVenue(venue: Venue): Promise<Venue>;
+    getAllVenueNames(): Promise<string[]>;
     verifyToken(jwt: string): string | object;
 }

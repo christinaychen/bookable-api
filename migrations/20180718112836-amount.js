@@ -15,24 +15,29 @@ exports.setup = function (options, seedLink) {
 };
 
 exports.up = function (db, callback) {
-  db.addColumn("orderItem", "amount", {
-    type: "int",
-    length: 200
+  db.createTable('amount', {
+    amountId: {
+      type: 'int',
+      primaryKey: true,
+      autoIncrement: true
+    },
+    venueId: {
+      type: 'int',
+    },
+    x: {
+      type: 'int',
+    },
+    y: {
+      type: 'int',
+    },
+    price: {
+      type: 'int'
+    }
   }, callback);
-
-  db.addColumn("orderItem", "token", {
-    type: "string",
-    length: 200
-  }, callback);
-
-
 };
 
-
-exports.down = function (db) {
-  db.removeColumn("orderItem", "amount", callback);
-  db.removeColumn("orderItem", "token", callback);
-
+exports.down = function (db, callback) {
+  db.dropTable("amount", callback);
 };
 
 exports._meta = {

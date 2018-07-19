@@ -19,14 +19,14 @@ export class Amount extends Entity {
   x: number;
 
   @property({
-    type: "string",
+    type: "number",
   })
-  y: string;
+  y: number;
 
   @property({
     type: "number",
   })
-  amount: number;
+  price: number;
 
   getId() {
     return this.id;

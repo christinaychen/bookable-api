@@ -203,6 +203,39 @@ exports.up = function (db, callback) {
     }
 
   }, callback);
+  db.createTable('venue', {
+    venueId: {
+      type: 'int',
+      primaryKey: true,
+      autoIncrement: true
+    },
+    name: {
+      type: 'string',
+      length: 255
+    },
+    type: {
+      type: 'string',
+      length: 255
+    },
+    address: {
+      type: 'string',
+      length: 255
+    },
+    mapId: {
+      type: 'int',
+    },
+    latitude: {
+      type: 'string',
+      length: 255
+    },
+    longitude: {
+      type: 'string',
+      length: 255
+    },
+    rating: {
+      type: 'int',
+    }
+  }, callback);
 
   db.createTable('venueRating', {
     venueRatingId: {
@@ -260,6 +293,32 @@ exports.up = function (db, callback) {
     },
   }, callback);
 
+  db.createTable('orderItem', {
+    orderItemId: {
+      type: 'int',
+      primaryKey: true,
+      autoIncrement: true
+    },
+    venueId: {
+      type: 'int',
+    },
+    purchaseId: {
+      type: 'int',
+    },
+    customerId: {
+      type: 'int',
+    },
+    x: {
+      type: 'int',
+    },
+    y: {
+      type: 'int',
+    },
+    time: {
+      type: 'datetime',
+    },
+  }, callback);
+
   db.createTable('totalPurchase', {
     purchaseId: {
       type: 'int',
@@ -277,49 +336,8 @@ exports.up = function (db, callback) {
     },
   }, callback);
 
-
-  //   db.createTable('user_test', {
-  //     id: {
-  //       type: 'int',
-  //       primaryKey: true,
-  //       autoIncrement: true,
-  //     },
-  //     full_name: {
-  //       type: 'string',
-  //       length: 255
-  //     },
-  //     dob: {
-  //       type: 'date'
-  //     },
-  //     email: {
-  //       type: 'string'
-  //     }
-  //   }, () => {
-  //     db.addColumn('user_test', 'firstname', {
-  //       type: 'string',
-  //       length: 255
-  //     },
-  //       () => {
-  //         db.addColumn('user_test', 'lastname', {
-  //           type: 'string',
-  //           length: 255
-  //         }, callback)
-  //       }
-  //     )
-  //   }
-  //   )
-  // };
-
-
 };
 
-// ratingValue: {
-//   type: 'int',
-//     },
-// venueId: {
-//   type: 'int'
-// },
-//   }, callback);
 
 
 

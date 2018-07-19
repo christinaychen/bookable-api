@@ -32,6 +32,16 @@ export class VenueController {
     return await this.venueRepo.create(venue);
 
   }
+
+  @get("/getVenueNames")
+  async getAllVenueNames() {
+    let nameList: Array<string> = [];
+    let list = await this.venueRepo.find();
+    for (let i = 0; i < list.length; i++) {
+      nameList[i] = list[i].name;
+    }
+    return nameList;
+  }
   /*
     @get("/getVenues")
     async getVenue(@requestBody() venue: Venue) {
