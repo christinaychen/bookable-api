@@ -22,7 +22,8 @@ export class Order_itemController {
   public source: string;
 
   constructor(@repository(OrderItemRepository.name) private orderItemRepo: OrderItemRepository,
-    @repository(RatingRepository.name) private ratingRepo: RatingRepository) { }
+    @repository(RatingRepository.name) private ratingRepo: RatingRepository,
+    @repository(VenueRepository.name) private venueRepo: VenueRepository) { }
 
 
   // @post("/purchase")
@@ -53,7 +54,7 @@ export class Order_itemController {
   @get("/orderItems/{userId}")
   async getOrderItems(
     @param.query.number("userId") userId: number
-  ) {
+  ): Promise<Array<OrderItem>> {
     return await this.orderItemRepo.find({
       where: { userId: userId }
     });
@@ -84,6 +85,21 @@ export class Order_itemController {
       throw new HttpErrors.Unauthorized("Can't create charge");
     }
   }
+
+  @post("/addVenue")
+  async addVenue(
+    @requestBody() venue: any
+  ) {
+    let business = new Venue();
+    business.address = venue.location.address1 + ", " + business.location.city + ", " + business.location.state + " " + business.location.zip_code;
+    business.rating = venue.rating;
+    business.price = venue.price;
+    business.latitude = venue.coordinates.latitude;
+    business.longitude = venue.coordinates.longitude;
+    return await this.venueRepo.create(venue);
+  }
+
+
 
 
 

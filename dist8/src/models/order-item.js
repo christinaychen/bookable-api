@@ -36,6 +36,12 @@ __decorate([
 ], OrderItem.prototype, "venueId", void 0);
 __decorate([
     repository_1.property({
+        type: "string",
+    }),
+    __metadata("design:type", String)
+], OrderItem.prototype, "yelpVenueId", void 0);
+__decorate([
+    repository_1.property({
         type: "number",
     }),
     __metadata("design:type", Number)

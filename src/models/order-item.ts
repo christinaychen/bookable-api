@@ -14,6 +14,11 @@ export class OrderItem extends Entity {
   venueId: number;
 
   @property({
+    type: "string",
+  })
+  yelpVenueId: string;
+
+  @property({
     type: "number",
   })
   purchaseId: number;

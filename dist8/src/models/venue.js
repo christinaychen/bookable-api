@@ -30,6 +30,13 @@ __decorate([
 ], Venue.prototype, "venueId", void 0);
 __decorate([
     repository_1.property({
+        type: "string",
+        length: 200,
+    }),
+    __metadata("design:type", String)
+], Venue.prototype, "yelpVenueId", void 0);
+__decorate([
+    repository_1.property({
         type: "string"
     }),
     __metadata("design:type", String)

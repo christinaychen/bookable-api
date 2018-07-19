@@ -15,19 +15,14 @@ exports.setup = function (options, seedLink) {
 };
 
 exports.up = function (db, callback) {
-
-  db.addColumn("venue", "column", {
-    type: "int"
+  db.addColumn("venue", "price", {
+    type: "string",
+    length: 200
   }, callback);
-
-  db.addColumn("venue", "row", {
-    type: "int",
-  }, callback);
-}
+};
 
 exports.down = function (db, callback) {
-  db.removeColumn("venue", "column", callback);
-  db.removeColumn("venue", "row", callback);
+  db.removeColumn("venue", "price", callback);
 };
 
 exports._meta = {

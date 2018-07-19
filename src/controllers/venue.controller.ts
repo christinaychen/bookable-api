@@ -33,6 +33,14 @@ export class VenueController {
 
   }
 
+  @get("/venue/{{yelpVenueId}}")
+  async getVenue(
+    @param.query.number("string") yelpVenueId: string
+  ) {
+    return await this.venueRepo.findById(yelpVenueId);
+
+  }
+
   @get("/getVenueNames")
   async getAllVenueNames() {
     let nameList: Array<string> = [];

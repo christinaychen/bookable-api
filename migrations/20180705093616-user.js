@@ -50,14 +50,18 @@ exports.up = function (db, callback) {
       type: 'int',
     },
     venueId: {
-      type: 'int'
+      type: 'int',
+
     },
   }, callback);
   db.createTable('venue', {
     venueId: {
       type: 'int',
-      primaryKey: true,
-      autoIncrement: true
+      primaryKey: true
+    },
+    yelpVenueId: {
+      type: 'string',
+      length: 200
     },
     name: {
       type: 'string',
@@ -100,6 +104,8 @@ exports.up = function (db, callback) {
     },
     venueId: {
       type: 'int',
+
+
     },
     RatingValue: {
       type: 'int',
@@ -113,6 +119,8 @@ exports.up = function (db, callback) {
     },
     venueId: {
       type: 'int',
+
+
     },
     tagType: {
       type: 'string',
@@ -128,6 +136,10 @@ exports.up = function (db, callback) {
     },
     venueId: {
       type: 'int',
+    },
+    yelpVenueId: {
+      type: 'string',
+      length: 200
     },
     purchaseId: {
       type: 'int',
@@ -169,74 +181,6 @@ exports.up = function (db, callback) {
     },
   }, callback);
 
-  db.createTable('venue', {
-    venueId: {
-      type: 'int',
-      primaryKey: true,
-      autoIncrement: true
-    },
-    name: {
-      type: 'string',
-      length: 255
-    },
-    type: {
-      type: 'string',
-      length: 255
-    },
-    address: {
-      type: 'string',
-      length: 255
-    },
-    mapId: {
-      type: 'int',
-    },
-    latitude: {
-      type: 'string',
-      length: 255
-    },
-    longitude: {
-      type: 'string',
-      length: 255
-    },
-    rating: {
-      type: 'int',
-    }
-
-  }, callback);
-  db.createTable('venue', {
-    venueId: {
-      type: 'int',
-      primaryKey: true,
-      autoIncrement: true
-    },
-    name: {
-      type: 'string',
-      length: 255
-    },
-    type: {
-      type: 'string',
-      length: 255
-    },
-    address: {
-      type: 'string',
-      length: 255
-    },
-    mapId: {
-      type: 'int',
-    },
-    latitude: {
-      type: 'string',
-      length: 255
-    },
-    longitude: {
-      type: 'string',
-      length: 255
-    },
-    rating: {
-      type: 'int',
-    }
-  }, callback);
-
   db.createTable('venueRating', {
     venueRatingId: {
       type: 'int',
@@ -245,6 +189,8 @@ exports.up = function (db, callback) {
     },
     venueId: {
       type: 'int',
+
+
     },
     RatingValue: {
       type: 'int',
@@ -259,6 +205,8 @@ exports.up = function (db, callback) {
     },
     venueId: {
       type: 'int',
+
+
     },
     tagType: {
       type: 'string',
@@ -273,6 +221,11 @@ exports.up = function (db, callback) {
       autoIncrement: true
     },
     venueId: {
+      type: 'int',
+
+
+    },
+    customerId: {
       type: 'int',
     },
     purchaseId: {
@@ -301,6 +254,11 @@ exports.up = function (db, callback) {
     },
     venueId: {
       type: 'int',
+
+
+
+
+
     },
     purchaseId: {
       type: 'int',

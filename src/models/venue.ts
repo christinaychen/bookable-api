@@ -10,6 +10,13 @@ export class Venue extends Entity {
   venueId?: number;
 
   @property({
+    type: "string",
+    length: 200,
+  })
+  yelpVenueId: string;
+
+
+  @property({
     type: "string"
   })
   name: string;

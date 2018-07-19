@@ -1,6 +1,7 @@
 import { Entity } from "@loopback/repository";
 export declare class Venue extends Entity {
     venueId?: number;
+    yelpVenueId: string;
     name: string;
     type: string;
     address: string;

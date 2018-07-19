@@ -37,6 +37,9 @@ let VenueController = class VenueController {
             } */
         return await this.venueRepo.create(venue);
     }
+    async getVenue(yelpVenueId) {
+        return await this.venueRepo.findById(yelpVenueId);
+    }
     async getAllVenueNames() {
         let nameList = [];
         let list = await this.venueRepo.find();
@@ -77,6 +80,13 @@ __decorate([
     __metadata("design:paramtypes", [venue_1.Venue]),
     __metadata("design:returntype", Promise)
 ], VenueController.prototype, "registerVenue", null);
+__decorate([
+    rest_1.get("/venue/{{yelpVenueId}}"),
+    __param(0, rest_1.param.query.number("string")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], VenueController.prototype, "getVenue", null);
 __decorate([
     rest_1.get("/getVenueNames"),
     __metadata("design:type", Function),
